@@ -19,11 +19,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 @SpringBootApplication
 @MapperScan(basePackages = "com.shopping.mall.mapper")
-public class Application extends WebMvcConfigurerAdapter implements CommandLineRunner {
-    private Logger logger = LoggerFactory.getLogger(Application.class);
+public class SpringBootMybatisMallApplication extends WebMvcConfigurerAdapter implements CommandLineRunner {
+    private Logger logger = LoggerFactory.getLogger(SpringBootMybatisMallApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(SpringBootMybatisMallApplication.class, args);
     }
 
     @Override

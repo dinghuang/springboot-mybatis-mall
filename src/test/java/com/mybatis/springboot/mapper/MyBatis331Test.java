@@ -35,7 +35,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-import com.shopping.mall.Application;
+import com.shopping.mall.SpringBootMybatisMallApplication;
 import com.mybatis.springboot.model.City2;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @Transactional
-@SpringBootTest(classes = Application.class)
+@SpringBootTest(classes = SpringBootMybatisMallApplication.class)
 public class MyBatis331Test {
     private Logger logger = LoggerFactory.getLogger(getClass());
 

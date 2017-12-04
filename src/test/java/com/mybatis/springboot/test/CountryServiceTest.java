@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.shopping.mall.Application;
+import com.shopping.mall.SpringBootMybatisMallApplication;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Import(Application.class)
+@Import(SpringBootMybatisMallApplication.class)
 public class CountryServiceTest {
 
     @Autowired
