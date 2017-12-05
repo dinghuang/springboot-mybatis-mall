@@ -1,4 +1,4 @@
-package com.shopping.mall.model;
+package com.shopping.mall.domain;
 
 import javax.persistence.*;
 

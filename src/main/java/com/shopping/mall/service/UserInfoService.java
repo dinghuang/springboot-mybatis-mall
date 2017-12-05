@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.shopping.mall.mapper.UserInfoMapper;
-import com.shopping.mall.model.UserInfo;
+import com.shopping.mall.domain.UserInfo;
 
 import java.util.List;
 

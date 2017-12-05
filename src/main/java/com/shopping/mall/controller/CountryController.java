@@ -1,7 +1,7 @@
 package com.shopping.mall.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.shopping.mall.model.Country;
+import com.shopping.mall.domain.Country;
 import com.shopping.mall.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

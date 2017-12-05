@@ -1,6 +1,6 @@
 package com.shopping.mall.mapper;
 
-import com.shopping.mall.model.City;
+import com.shopping.mall.domain.City;
 import com.shopping.mall.util.MyMapper;
 
 /**

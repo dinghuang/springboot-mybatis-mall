@@ -1,7 +1,7 @@
 package com.shopping.mall.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.shopping.mall.model.UserInfo;
+import com.shopping.mall.domain.UserInfo;
 import com.shopping.mall.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;

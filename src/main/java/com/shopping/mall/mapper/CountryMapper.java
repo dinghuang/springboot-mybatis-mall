@@ -1,7 +1,7 @@
 package com.shopping.mall.mapper;
 
 import com.shopping.mall.util.MyMapper;
-import com.shopping.mall.model.Country;
+import com.shopping.mall.domain.Country;
 
 /**
  * @author dinghuang

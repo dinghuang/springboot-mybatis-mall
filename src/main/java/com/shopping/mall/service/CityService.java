@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.shopping.mall.mapper.CityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.shopping.mall.model.City;
+import com.shopping.mall.domain.City;
 
 import java.util.List;
 

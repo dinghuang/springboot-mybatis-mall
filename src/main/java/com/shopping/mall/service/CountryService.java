@@ -1,7 +1,7 @@
 package com.shopping.mall.service;
 
 import com.github.pagehelper.PageHelper;
-import com.shopping.mall.model.Country;
+import com.shopping.mall.domain.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
