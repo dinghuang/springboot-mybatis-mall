@@ -1,12 +1,12 @@
 package com.shopping.mall.mapper;
 
-import com.shopping.mall.util.MyMapper;
+import com.shopping.mall.conf.BaseMapper;
 import com.shopping.mall.domain.Country;
 
 /**
  * @author dinghuang
  * @since 2017-12-04 16:16
  */
-public interface CountryMapper extends MyMapper<Country> {
+public interface CountryMapper extends BaseMapper<Country> {
 
 }

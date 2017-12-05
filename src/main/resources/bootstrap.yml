@@ -1,8 +1,9 @@
 logging:
   level.com.hand.mobile.cloud: DEBUG
 mybatis:
+  configuration.map-underscore-to-camel-case: true
   mapperLocations: classpath*:/mapper/*.xml
-  mybatis.type-aliases-package: com.shopping.mall.domain
+  type-aliases-package: com.shopping.mall.domain
   mybatis.configuration.map-underscore-to-camel-case: true
   mybatis.configuration.use-generated-keys: true
   mybatis.configuration.default-fetch-size: 100
@@ -27,7 +28,7 @@ spring:
       max-file-size: 200MB
       max-request-size: 2500MB
 server:
-  port: 9090
+  port: 8086
   context-path: #/dinghuang/
 mapper:
   mappers: com.shopping.mall.util.MyMapper

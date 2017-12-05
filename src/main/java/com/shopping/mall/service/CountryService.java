@@ -31,7 +31,9 @@ public class CountryService {
         if (country.getCountrycode() != null && country.getCountrycode().length() > 0) {
             criteria.andLike("countrycode", "%" + country.getCountrycode() + "%");
         }
-        return countryMapper.selectByExample(example);
+        Country country1 = countryMapper.selectByPrimaryKey(1);
+        List<Country> countryList = countryMapper.selectAll();
+        return countryMapper.selectAll();
     }
 
     public Country getById(Integer id) {
