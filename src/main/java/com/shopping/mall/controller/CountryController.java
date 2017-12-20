@@ -1,9 +1,14 @@
 package com.shopping.mall.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.shopping.mall.conf.SmException;
 import com.shopping.mall.domain.Country;
 import com.shopping.mall.service.CountryService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author dinghuang
@@ -24,6 +30,7 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
+
     @RequestMapping
     public ModelAndView getAll(Country country) {
         ModelAndView result = new ModelAndView("index");
@@ -34,6 +41,15 @@ public class CountryController {
         result.addObject("rows", country.getRows());
         return result;
     }
+
+    @RequestMapping(value = "/error")
+    public ResponseEntity<String> error() throws SmException{
+        return Optional.ofNullable("XXX")
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new SmException("error.appBundle.create"));
+    }
+
+
 
     @RequestMapping(value = "/add")
     public ModelAndView add() {
@@ -56,6 +72,15 @@ public class CountryController {
         countryService.deleteById(id);
         ra.addFlashAttribute("msg", "删除成功!");
         return result;
+    }
+
+    @ApiOperation(value = "测试Swagger",notes = "输入字符串，返回字符串")
+    @ApiImplicitParam(name = "str",value = "字符串",required = true,dataType = "String")
+    @RequestMapping(value = "/{str}",method = RequestMethod.GET)
+    public ResponseEntity<String> save(@PathVariable String str) throws SmException{
+        return Optional.ofNullable(str)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new SmException("error.appBundle.create"));
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
