@@ -1,0 +1,10 @@
+package com.shopping.mall.mapper;
+
+import com.shopping.mall.conf.BaseMapper;
+import com.shopping.mall.domain.Shoppingcart;
+
+/**
+ * Created by dinghuang on 2018/1/3.
+ */
+public interface ShoppingcartMapper extends BaseMapper<Shoppingcart> {
+}

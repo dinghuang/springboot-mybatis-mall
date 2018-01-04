@@ -30,6 +30,17 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
+    @RequestMapping(value = "/home")
+    public ModelAndView getHome() {
+        ModelAndView result = new ModelAndView("index");
+//        List<Country> countryList = countryService.getAll(country);
+//        result.addObject("pageInfo", new PageInfo<Country>(countryList));
+//        result.addObject("queryParam", country);
+//        result.addObject("page", country.getPage());
+//        result.addObject("rows", country.getRows());
+        return result;
+    }
+
 
     @RequestMapping
     public ModelAndView getAll(Country country) {

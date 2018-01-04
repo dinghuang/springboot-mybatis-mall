@@ -18,8 +18,10 @@ spring:
     active: dev
   mvc:
     view:
-      prefix: /templates/
-      suffix: .ftl
+    # 页面默认前缀目录
+      prefix: /WEB-INF/view/
+       # 响应页面默认后缀
+      suffix: .jsp
   freemarker:
     cache: false
     request-context-attribute: request
