@@ -31,6 +31,12 @@ public class Shoppingcart {
     @Column(name = "sccount")
     private Long sccount;
 
+    /**
+     * 商品数
+     */
+    @Column(name = "timestamp")
+    private Long timestamp;
+
     public Long getScid() {
         return scid;
     }

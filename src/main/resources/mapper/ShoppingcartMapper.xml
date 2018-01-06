@@ -3,4 +3,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.shopping.mall.mapper.ShoppingcartMapper">
 
+    <resultMap id="BaseResultMap" type="com.shopping.mall.domain.Shoppingcart">
+        <result column="scid" property="scid" jdbcType="DECIMAL"/>
+        <result column="tuser" property="tuser" jdbcType="VARCHAR"/>
+        <result column="mid" property="mid" jdbcType="DECIMAL"/>
+        <result column="sccount" property="sccount" jdbcType="DECIMAL"/>
+        <result column="timestamp" property="timestamp" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="selectByUserName" resultMap="BaseResultMap">
+       SELECT * FROM shoppingcart
+        WHERE tuser = #{userName}
+    </select>
+
 </mapper>

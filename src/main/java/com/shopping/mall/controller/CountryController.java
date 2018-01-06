@@ -1,7 +1,6 @@
 package com.shopping.mall.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.shopping.mall.conf.SmException;
 import com.shopping.mall.domain.Country;
 import com.shopping.mall.service.CountryService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -53,14 +52,6 @@ public class CountryController {
         return result;
     }
 
-    @RequestMapping(value = "/error")
-    public ResponseEntity<String> error() throws SmException{
-        return Optional.ofNullable("XXX")
-                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
-                .orElseThrow(() -> new SmException("error.appBundle.create"));
-    }
-
-
 
     @RequestMapping(value = "/add")
     public ModelAndView add() {
@@ -88,10 +79,10 @@ public class CountryController {
     @ApiOperation(value = "测试Swagger",notes = "输入字符串，返回字符串")
     @ApiImplicitParam(name = "str",value = "字符串",required = true,dataType = "String")
     @RequestMapping(value = "/{str}",method = RequestMethod.GET)
-    public ResponseEntity<String> save(@PathVariable String str) throws SmException{
+    public ResponseEntity<String> save(@PathVariable String str) throws Exception{
         return Optional.ofNullable(str)
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
-                .orElseThrow(() -> new SmException("error.appBundle.create"));
+                .orElseThrow(() -> new Exception("error.appBundle.create"));
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)

@@ -1,6 +1,5 @@
 package com.shopping.mall.controller;
 
-import com.shopping.mall.conf.WebSecurityConfig;
 import com.shopping.mall.domain.Rolling;
 import com.shopping.mall.domain.Shoppingcart;
 import com.shopping.mall.domain.Tuser;
@@ -11,15 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
-
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,11 +23,11 @@ import java.util.Map;
 @Controller
 public class LoginController {
     @Autowired
-    RollingService rollingService;
+    private RollingService rollingService;
     @Autowired
-    TuserService tuserService;
+    private TuserService tuserService;
     @Autowired
-    ShoppingcartService shoppingcartService;
+    private ShoppingcartService shoppingcartService;
 
     private static Logger logger = LoggerFactory.getLogger(LoginController.class);
 
@@ -57,10 +51,12 @@ public class LoginController {
             Tuser tuser = tuserService.getTuser(name);
             if(tuser!=null){
                 if(tuser.getTpwd().equals(password)&&tuser.getTrights().equals("2")){
-                    session.setAttribute(WebSecurityConfig.SESSION_KEY, tuser);
-                    List<Shoppingcart> shoppingCartList = shoppingcartService
-                            .getShoppingcartListByname(name);
+//                    session.setAttribute(WebSecurityConfig.SESSION_KEY, tuser);
+                    List<Shoppingcart> shoppingCartList = shoppingcartService.selectShoppingCartByUserName(name);
                     map.put("shoppingCartList",shoppingCartList);
+                    List<Rolling> rollingList = rollingService.getRollings();
+                    map.put("rollingList", rollingList);
+                    map.put("tUserBean",tuser);
                     return "index";
                 }else{
                     map.put("message","Error password");
@@ -74,15 +70,16 @@ public class LoginController {
     }
 
     @RequestMapping("/")
-    public String index(@SessionAttribute(WebSecurityConfig.SESSION_KEY) String account, Model model) {
-        model.addAttribute("name", account);
+    public String index(Map<String, Object> map) {
+        List<Rolling> rollingList = rollingService.getRollings();
+        map.put("rollingList", rollingList);
         return "index";
     }
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         // 移除session
-        session.removeAttribute(WebSecurityConfig.SESSION_KEY);
+//        session.removeAttribute(WebSecurityConfig.SESSION_KEY);
         return "redirect:/login";
     }
 
