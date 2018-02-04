@@ -19,13 +19,13 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 
-<link href="<%=path%>/admin/jsp/images/style.css" rel="stylesheet"
+<link href="<%=path%>/css/admin/style.css" rel="stylesheet"
 	type="text/css" />
 <style type="text/css">
 body {
 	margin-left: 0px;
 	margin-top: 0px;
-	background-image: url(login1_08.gif);
+	background-image: url(/css/admin/login1_08.gif);
 	background-repeat: repeat-x;
 	margin-bottom: 0px;
 	font-family: "ËÎÌו";
@@ -39,7 +39,7 @@ body {
 </head>
 
 <body>
-	<form action="<%=path%>/adminLoginServletUrl" method="post">
+	<form action="<%=path%>/adminLogin" method="post">
 		<table width="990" height="650" border="0" align="left"
 			cellpadding="0" cellspacing="0">
 			<tr>
@@ -72,7 +72,7 @@ body {
 									<tr>
 										<td width="25%" height="25">&nbsp;</td>
 										<td width="48%" valign="top"><label> <input
-												name="name" type="text" class="txt" size="25"/>
+												name="name" type="text" class="txt" size="25" />
 										</label></td>
 										<td width="27%" rowspan="2"><input type="image"
 											src="<%=path%>/images/adminlogin_images/login_2.gif"
@@ -81,7 +81,7 @@ body {
 									<tr>
 										<td>&nbsp;</td>
 										<td><input name="password"
-											type="password" class="txt" size="25" /></td>
+											type="password" class="txt" size="25"  /></td>
 									</tr>
 								</table>
 							</td>

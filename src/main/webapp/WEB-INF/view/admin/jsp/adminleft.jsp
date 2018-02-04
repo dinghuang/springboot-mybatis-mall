@@ -18,7 +18,7 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 
-<link href="<%=path%>/admin/jsp/images/style.css" rel="stylesheet"
+<link href="<%=path%>/css/admin/images/style.css" rel="stylesheet"
 	type="text/css" />
 <style type="text/css">
 body {
@@ -131,13 +131,13 @@ body {
 		align="left" >
 		<tr>
 			<td width="8" height="8"><img
-				src="<%=path%>/admin/jsp/images/index1_23.gif" width="8" height="29" /></td>
-			<td width="99%" background="<%=path%>/admin/jsp/images/index1_24.gif"></td>
+				src="<%=path%>/css/admin/images/index1_23.gif" width="8" height="29" /></td>
+			<td width="99%" background="<%=path%>/css/admin/images/index1_24.gif"></td>
 			<td width="8" height="8"><img
-				src="<%=path%>/admin/jsp/images/index1_26.gif" width="8" height="29" /></td>
+				src="<%=path%>/css/admin/images/index1_26.gif" width="8" height="29" /></td>
 		</tr>
 		<tr>
-			<td background="<%=path%>/admin/jsp/images/index1_45.gif"></td>
+			<td background="<%=path%>/css/admin/images/index1_45.gif"></td>
 			<td bgcolor="#FFFFFF"
 				style="padding:0 2px 0 2px; vertical-align:top;height:500px;">
 				<div class="leftMenu">
@@ -239,14 +239,14 @@ body {
 				</div>
 
 			</td>
-			<td background="<%=path%>/admin/jsp/images/index1_47.gif"></td>
+			<td background="<%=path%>/css/admin/images/index1_47.gif"></td>
 		</tr>
 		<tr>
 			<td width="8" height="8"><img
-				src="<%=path%>/admin/jsp/images/index1_91.gif" width="8" height="8" /></td>
-			<td background="<%=path%>/admin/jsp/images/index1_92.gif"></td>
+				src="<%=path%>/css/admin/images/index1_91.gif" width="8" height="8" /></td>
+			<td background="<%=path%>/css/admin/images/index1_92.gif"></td>
 			<td width="8" height="8"><img
-				src="<%=path%>/admin/jsp/images/index1_93.gif" width="8" height="8" /></td>
+				src="<%=path%>/css/admin/images/index1_93.gif" width="8" height="8" /></td>
 		</tr>
 	</table>
 </body>

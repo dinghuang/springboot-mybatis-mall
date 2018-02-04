@@ -15,7 +15,7 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<link href="<%=path%>/admin/jsp/images/style.css" rel="stylesheet"
+<link href="<%=path%>/css/admin/style.css" rel="stylesheet"
 	type="text/css" />
 <style type="text/css">
 body {
@@ -31,12 +31,12 @@ body {
 </style>
 </head>
 <frameset rows="74,*" border="0">
-	<frame src="<%=path%>/admin/jsp/admintop.jsp" name="topFrame"
+	<frame src="<%=path%>/admintop" name="topFrame"
 		scrolling="No" id="topFrame" noresize="noresize" />
 	<frameset cols="248,*">
-		<frame src="<%=path%>/admin/jsp/adminleft.jsp" name="leftFrame"
+		<frame src="<%=path%>adminleft" name="leftFrame"
 			scrolling="No" id="leftFrame" noresize="noresize" />
-		<frame src="<%=path%>/admin/jsp/adminright.jsp" name="rightFrame"
+		<frame src="<%=path%>adminright" name="rightFrame"
 			id="rightFrame" noresize="noresize" />
 	</frameset>
 </frameset>

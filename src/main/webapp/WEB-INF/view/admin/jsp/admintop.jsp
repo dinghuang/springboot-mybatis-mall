@@ -15,7 +15,7 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
-<link href="<%=path%>/admin/jsp/images/style.css" rel="stylesheet"
+<link href="<%=path%>/css/admin/style.css" rel="stylesheet"
 	type="text/css" />
 <style type="text/css">
 body {
@@ -34,22 +34,22 @@ body {
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td height="74" colspan="2"
-				background="<%=path%>/admin/jsp/images/index1_03.gif">
+				background="<%=path%>/css/admin/images/index1_03.gif">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td width="33%" rowspan="2"><img
-							src="<%=path%>/admin/jsp/images/index1_01.gif" width="253"
+							src="<%=path%>/css/admin/images/index1_01.gif" width="253"
 							height="74" /></td>
 						<td width="6%" rowspan="2">&nbsp;</td>
 						<td width="61%" height="38" align="right">
 							<table width="120" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td align="center"><img
-										src="<%=path%>/admin/jsp/images/index1_06.gif" width="16"
+										src="<%=path%>/css/admin/images/index1_06.gif" width="16"
 										height="16" /></td>
 									<td align="center" class="font2"><a class="font2"><strong>帮助</strong></a></td>
 									<td align="center"><img
-										src="<%=path%>/admin/jsp/images/index1_08.gif" width="16"
+										src="<%=path%>/css/admin/images/index1_08.gif" width="16"
 										height="16" /></td>
 									<td align="center" class="font2"><a class="font2" href="<%=path%>/adminLoginServletUrl?task=exit" target="_top"><strong>退出</strong></a></td>
 								</tr>
@@ -61,11 +61,11 @@ body {
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td align="right" class="font2"><a > <img
-											src="<%=path%>/admin/jsp/images/index1_13.gif" width="84"
+											src="<%=path%>/css/admin/images/index1_13.gif" width="84"
 											height="24" border="0" align="absmiddle" /></a>
 										&nbsp;|&nbsp;登陆用户：${tUserBean.tuser} &nbsp;|&nbsp;身份： ${tUserBean.trights=='0'?'超级管理员':'管理员'}
 										&nbsp;|&nbsp;界面风格： <a ><img
-											src="<%=path%>/admin/jsp/images/index1_16.gif" width="48"
+											src="<%=path%>/css/admin/images/index1_16.gif" width="48"
 											height="24" border="0" align="absmiddle" /></a>&nbsp;</td>
 								</tr>
 							</table>

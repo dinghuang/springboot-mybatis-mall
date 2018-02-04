@@ -19,7 +19,7 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 <!-- µ÷ÓÃCSS£¬JS -->
-<link href="<%=path%>/admin/jsp/images/style.css" rel="stylesheet"
+<link href="<%=path%>/css/admin/images/style.css" rel="stylesheet"
 	type="text/css" />
 <style type="text/css">
 body {
