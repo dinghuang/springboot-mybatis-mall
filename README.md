@@ -1,2 +1,3 @@
 # SpringBoot-Mybatis-Mall
-spring-boot整合mybatis的电商项目
+spring-boot整合mybatis的校园电商项目
+
