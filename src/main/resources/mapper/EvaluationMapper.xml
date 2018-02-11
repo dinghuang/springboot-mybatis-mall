@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.EvaluationMapper">
+    <resultMap id="BaseResultMap" type="com.shopping.mall.domain.Evaluation">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <id column="product_id" jdbcType="INTEGER" property="productId"/>
+        <id column="time" jdbcType="VARCHAR" property="time"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+
+    <select id="getProductEvaluation" resultMap="BaseResultMap">
+      SELECT * from evaluation where product_id=#{product_id}
+    </select>
+</mapper>

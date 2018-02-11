@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.ShoppingCarMapper">
+  <resultMap id="BaseResultMap" type="com.shopping.mall.domain.ShoppingCar">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_price" jdbcType="INTEGER" property="productPrice" />
+    <result column="counts" jdbcType="INTEGER" property="counts" />
+  </resultMap>
+</mapper>

@@ -7,8 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 
@@ -18,7 +16,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  */
 @SpringBootApplication
 @MapperScan(basePackages = "com.shopping.mall.mapper")
-public class SpringBootMybatisMallApplication  extends SpringBootServletInitializer implements CommandLineRunner,EmbeddedServletContainerCustomizer {
+public class SpringBootMybatisMallApplication  extends SpringBootServletInitializer implements CommandLineRunner {
     private Logger logger = LoggerFactory.getLogger(SpringBootMybatisMallApplication.class);
 
     public static void main(String[] args) {
@@ -32,11 +30,6 @@ public class SpringBootMybatisMallApplication  extends SpringBootServletInitiali
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(SpringBootMybatisMallApplication.class);
-    }
-
-    @Override
-    public void customize(ConfigurableEmbeddedServletContainer configurableEmbeddedServletContainer) {
-        configurableEmbeddedServletContainer.setPort(8086);
     }
 
 }

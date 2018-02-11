@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.UserDetailMapper">
+  <resultMap id="BaseResultMap" type="com.shopping.mall.domain.UserDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="post_number" jdbcType="VARCHAR" property="postNumber" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="register_time" jdbcType="VARCHAR" property="registerTime" />
+  </resultMap>
+</mapper>

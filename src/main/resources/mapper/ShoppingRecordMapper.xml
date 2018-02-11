@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.ShoppingRecordMapper">
+    <resultMap id="BaseResultMap" type="com.shopping.mall.domain.ShoppingRecord">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <id column="product_id" jdbcType="INTEGER" property="productId"/>
+        <id column="time" jdbcType="VARCHAR" property="time"/>
+        <result column="order_status" jdbcType="INTEGER" property="orderStatus"/>
+        <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+        <result column="counts" jdbcType="INTEGER" property="counts"/>
+    </resultMap>
+    <select resultMap="BaseResultMap" id="getUserProductRecord">
+      SELECT count(*) from shopping_record where user_id=#{userId} and product_id=#{product_id}
+  </select>
+</mapper>
