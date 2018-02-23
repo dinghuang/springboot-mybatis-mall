@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-2 col-md-2 control-label">用户名</label>
                     <div class="col-sm-6 col-md-6">
-                        <input type="text" class="form-control" id="inputUserName" placeholder="请输入数字"/>
+                        <input type="text" class="form-control" id="inputUserName" placeholder="请输入用户名"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label for="inputNickname" class="col-sm-2 col-md-2 control-label">昵称</label>
                     <div class="col-sm-6 col-md-6">
-                        <input type="text" class="form-control" id="inputNickname" placeholder="高帅富" />
+                        <input type="text" class="form-control" id="inputNickname" placeholder="请输入名称" />
                     </div>
                 </div>
                 <div class="form-group">

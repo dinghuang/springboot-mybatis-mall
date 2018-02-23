@@ -16,20 +16,10 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  */
 @SpringBootApplication
 @MapperScan(basePackages = "com.shopping.mall.mapper")
-public class SpringBootMybatisMallApplication  extends SpringBootServletInitializer implements CommandLineRunner {
-    private Logger logger = LoggerFactory.getLogger(SpringBootMybatisMallApplication.class);
+public class SpringBootMybatisMallApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootMybatisMallApplication.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-        logger.info("Service Run Success");
-    }
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(SpringBootMybatisMallApplication.class);
     }
 
 }

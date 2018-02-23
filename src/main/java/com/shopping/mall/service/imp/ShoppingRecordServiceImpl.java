@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -26,6 +27,11 @@ public class ShoppingRecordServiceImpl extends AbstractService<ShoppingRecord> i
         }else{
             return false;
         }
+    }
+
+    @Override
+    public List<ShoppingRecord> findByUserId(int userId) {
+        return shoppingRecordMapper.findByUserId(userId);
     }
 
 }

@@ -1,12 +1,13 @@
 package com.shopping.mall.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table(name = "shopping_record")
 public class ShoppingRecord {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @Column(name = "user_id")
     private Integer userId;
 
@@ -22,6 +23,14 @@ public class ShoppingRecord {
     private Integer productPrice;
 
     private Integer counts;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     /**
      * @return user_id

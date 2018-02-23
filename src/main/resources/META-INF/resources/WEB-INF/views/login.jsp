@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="inputEmail" class="col-sm-2 col-md-2 control-label">邮箱/用户名</label>
                     <div class="col-sm-6 col-md-6">
-                        <input type="text" class="form-control" id="inputEmail" placeholder="xxxxxx@xx.com"/>
+                        <input type="text" class="form-control" id="inputEmail" placeholder="请输入邮箱/用户名"/>
                     </div>
                 </div>
                 <div class="form-group">

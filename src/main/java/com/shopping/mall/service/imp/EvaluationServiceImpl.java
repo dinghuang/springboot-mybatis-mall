@@ -5,6 +5,7 @@ import com.shopping.mall.core.AbstractService;
 import com.shopping.mall.domain.Evaluation;
 import com.shopping.mall.mapper.EvaluationMapper;
 import com.shopping.mall.service.EvaluationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,8 @@ import java.util.List;
 @Service
 @Transactional
 public class EvaluationServiceImpl extends AbstractService<Evaluation> implements EvaluationService {
-    @Resource
+
+    @Autowired
     private EvaluationMapper evaluationMapper;
 
     @Override

@@ -40,13 +40,13 @@
             <div class="form-group">
                 <label for="inputEmail" class="col-sm-2 col-md-2 control-label">邮箱</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="xxxxxx@xx.com" readonly>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="请输入邮箱/用户名" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputNickname" class="col-sm-2 col-md-2 control-label">昵称</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="inputNickname" placeholder="高帅富" />
+                    <input type="text" class="form-control" id="inputNickname" placeholder="请输入名称" />
                 </div>
             </div>
             <div class="form-group">
@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label for="inputPhoneNumber" class="col-sm-2 col-md-2 control-label">手机号码</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="inputPhoneNumber" placeholder="131xxxxxxxx" />
+                    <input type="text" class="form-control" id="inputPhoneNumber" placeholder="请输入手机号" />
                 </div>
             </div>
             <div class="form-group">

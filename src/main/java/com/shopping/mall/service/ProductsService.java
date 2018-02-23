@@ -11,5 +11,4 @@ import java.util.List;
  */
 public interface ProductsService extends Service<Products> {
 
-    List<Products> getProductsByKeyWord(String searchKeyWord);
 }

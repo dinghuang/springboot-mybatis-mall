@@ -13,7 +13,5 @@
     <result column="counts" jdbcType="INTEGER" property="counts" />
     <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
-  <select id="getProductsByKeyWord" resultMap="BaseResultMap">
-    SELECT * from products where name like #{queryKeyWord} or key_word like #{queryKeyWord}
-  </select>
+
 </mapper>

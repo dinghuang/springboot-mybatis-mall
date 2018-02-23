@@ -10,8 +10,4 @@
         <id column="time" jdbcType="VARCHAR" property="time"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
     </resultMap>
-
-    <select id="getProductEvaluation" resultMap="BaseResultMap">
-      SELECT * from evaluation where product_id=#{product_id}
-    </select>
 </mapper>

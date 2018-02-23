@@ -5,6 +5,7 @@
         <!--
           WARNING - @mbg.generated
         -->
+        <id column="id" jdbcType="INTEGER" property="id" />
         <id column="user_id" jdbcType="INTEGER" property="userId"/>
         <id column="product_id" jdbcType="INTEGER" property="productId"/>
         <id column="time" jdbcType="VARCHAR" property="time"/>
@@ -12,7 +13,4 @@
         <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
         <result column="counts" jdbcType="INTEGER" property="counts"/>
     </resultMap>
-    <select resultMap="BaseResultMap" id="getUserProductRecord">
-      SELECT count(*) from shopping_record where user_id=#{userId} and product_id=#{product_id}
-  </select>
 </mapper>

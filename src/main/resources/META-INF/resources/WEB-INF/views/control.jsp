@@ -40,6 +40,7 @@
             <!-- 控制内容 -->
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <div class="col-md-12">
+                    <hr/>
                     <h1><a name="section1">用户信息</a></h1>
                     <hr/>
                     <table class="table table-hover center" id="userTable">
@@ -281,7 +282,7 @@
               }
           });
           if(deleteResult != "success")
-              layer.alert("删除商品出错");
+              layer.alert("用户正在使用此商品，不能删除");
           listAllProduct();
       }
       
