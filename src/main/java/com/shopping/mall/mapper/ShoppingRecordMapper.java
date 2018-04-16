@@ -5,9 +5,11 @@ import com.shopping.mall.core.Mapper;
 import com.shopping.mall.domain.ShoppingRecord;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public interface ShoppingRecordMapper extends Mapper<ShoppingRecord> {
 
     @Select("SELECT count(*) from shopping_record where user_id=#{userId} and product_id=#{productId}")
