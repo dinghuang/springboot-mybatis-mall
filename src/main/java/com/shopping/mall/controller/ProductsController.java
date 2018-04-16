@@ -140,10 +140,16 @@ public class ProductsController {
                 String fileName = String.valueOf(id) + ".jpg";
                 byte[] bytes = productImgUpload.getBytes();
                 logger.info("bytes:" + bytes);
-                logger.info("filePath:" + filePath+ fileName);
+                logger.info("filePath:" + filePath + fileName);
+                String os = System.getProperty("os.name");
+                if (!os.toLowerCase().startsWith("win")) {
+                    String sepa = java.io.File.separator;
+                    filePath = sepa + filePath;
+                    logger.info("filePath:" + filePath + fileName);
+                }
                 Path path = Paths.get(filePath + fileName);
                 //创建文件
-                if(!Files.exists(path)) {
+                if (!Files.exists(path)) {
                     try {
                         Files.createFile(path);
                     } catch (IOException e) {
