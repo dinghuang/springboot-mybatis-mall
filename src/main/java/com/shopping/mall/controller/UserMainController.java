@@ -28,7 +28,7 @@ public class UserMainController {
     UserDetailService userDetailService;
 
     @RequestMapping("/")
-    public String index () {
+    public String index() {
         return "main";
     }
 
@@ -53,8 +53,17 @@ public class UserMainController {
     }
 
     @RequestMapping(value = "/control")
-    public String control() {
-        return "control";
+    public String control(HttpSession httpSession) {
+        if (httpSession.getAttribute("currentUser") == null||httpSession.getAttribute("currentUser").equals("")) {
+            return "main";
+        }else{
+            UserMain userMain = (UserMain) httpSession.getAttribute("currentUser");
+            if (userMain.getRole() == 1) {
+                return "control";
+            } else {
+                return "main";
+            }
+        }
     }
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
