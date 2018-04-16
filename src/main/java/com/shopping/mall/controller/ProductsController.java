@@ -1,137 +1,109 @@
 package com.shopping.mall.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.shopping.mall.domain.Constant;
+import com.shopping.mall.core.CommonException;
 import com.shopping.mall.domain.Products;
 import com.shopping.mall.service.ProductsService;
-import net.minidev.json.JSONArray;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Condition;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
-/**
- * Created by CodeGenerator on 2018/02/02.
- */
 @Controller
+@RequestMapping(value = "/mall/product")
 public class ProductsController {
-    @Resource
-    private ProductsService productsService;
+
+    private final ProductsService productsService;
+
+    private static final String WIN = "win";
+
+    @Autowired
+    public ProductsController(ProductsService productsService) {
+        this.productsService = productsService;
+    }
 
     private Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
-    @RequestMapping(value = "/getAllProducts")
-    @ResponseBody
-    public Map<String, Object> getAllProducts() {
-        List<Products> productList;
-        productList = productsService.findAll();
-        String allProducts = JSONArray.toJSONString(productList);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("allProducts", allProducts);
-        return resultMap;
+    @ApiOperation("获取所有产品")
+    @GetMapping(value = "/query_products")
+    public ResponseEntity<List<Products>> queryAllProducts() {
+        return Optional.ofNullable(productsService.findAll())
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.queryAllProducts"));
     }
 
-    @RequestMapping(value = "/deleteProduct", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> deleteProduct(int id) {
-        String result = Constant.FAIL;
-        if (productsService.deleteById(id) == 1) {
-            result = Constant.SUCCESS;
-        }
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, result);
-        return resultMap;
+    @ApiOperation("根据id删除产品")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Boolean> deleteProduct(@ApiParam(value = "商品id", required = true)
+                                                 @PathVariable int id) {
+        return Optional.ofNullable(productsService.deleteProduct(id))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.deleteProduct"));
     }
 
-    @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> addProduct(String name, String description, String keyWord, int price, int counts, int type) {
-        logger.info("添加商品:", name);
-        String result;
-        Products product = new Products();
-        product.setName(name);
-        product.setDescription(description);
-        product.setKeyWord(keyWord);
-        product.setPrice(price);
-        product.setCounts(counts);
-        product.setType(type);
-        productsService.save(product);
-        result = Constant.SUCCESS;
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, result);
-        return resultMap;
+    @ApiOperation("添加产品")
+    @PutMapping
+    public ResponseEntity<Products> addProduct(@ApiParam(value = "产品信息", required = true)
+                                               @RequestBody Products product) {
+        return Optional.ofNullable(productsService.addProduct(product))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
+                .orElseThrow(() -> new CommonException("error.addProduct"));
     }
 
-    @RequestMapping(value = "/productDetail", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> productDetail(int id, HttpSession httpSession) {
+    @ApiOperation("根据id查询产品详情")
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Products> queryProduct(@ApiParam(value = "产品信息", required = true)
+                                                 @PathVariable int id,
+                                                 HttpSession httpSession) {
         Products product = productsService.findById(id);
         httpSession.setAttribute("productDetail", product);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, Constant.SUCCESS);
-        return resultMap;
+        return Optional.ofNullable(product)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.queryProduct"));
     }
 
-    @RequestMapping(value = "/product_detail")
-    public String productDetail() {
-        return "product_detail";
-    }
-
-    @RequestMapping(value = "/searchPre", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> searchPre(String searchKeyWord, HttpSession httpSession) {
+    @ApiOperation("保存关键字到session")
+    @GetMapping(value = "/search")
+    public ResponseEntity<Boolean> searchPre(@ApiParam(value = "查询关键字", required = true)
+                                             @RequestParam String searchKeyWord,
+                                             HttpSession httpSession) {
         httpSession.setAttribute("searchKeyWord", searchKeyWord);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, Constant.SUCCESS);
-        return resultMap;
+        return Optional.of(true)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.searchPre"));
     }
 
-    @RequestMapping(value = "/search")
-    public String search() {
-        return "search";
-    }
-
-    @RequestMapping(value = "/searchProduct", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> searchProduct(String searchKeyWord) {
-        List<Products> productList;
+    @ApiOperation("根据关键字查询产品详情")
+    @GetMapping(value = "/search_by_key_word")
+    public ResponseEntity<List<Products>> searchProduct(@ApiParam(value = "查询关键字", required = true)
+                                                        @RequestParam String searchKeyWord) {
         Condition condition = new Condition(Products.class);
         condition.createCriteria().andCondition("name like ", searchKeyWord).orCondition("key_word like ", searchKeyWord);
-        productList = productsService.findByCondition(condition);
-        String searchResult = JSONArray.toJSONString(productList);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, searchResult);
-        return resultMap;
+        return Optional.ofNullable(productsService.findByCondition(condition))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.searchProduct"));
     }
 
-    @RequestMapping(value = "/getProductById", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getProductById(int id) {
-        Products product = productsService.findById(id);
-        String result = JSON.toJSONString(product);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, result);
-        return resultMap;
-    }
-
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> uploadFile(@RequestParam MultipartFile productImgUpload, String name, HttpServletRequest request) {
-        String result = Constant.FAIL;
+    @ApiOperation("上传商品图片")
+    @PostMapping(value = "/upload")
+    public ResponseEntity<Boolean> uploadFile(@ApiParam(value = "图片", required = true)
+                                              @RequestParam MultipartFile productImgUpload,
+                                              @ApiParam(value = "名称", required = true)
+                                              @RequestParam String name) {
         try {
             if (productImgUpload != null && !productImgUpload.isEmpty()) {
                 String sep = File.separator;
@@ -139,31 +111,23 @@ public class ProductsController {
                 int id = productsService.findBy("name", name).getId();
                 String fileName = String.valueOf(id) + ".jpg";
                 byte[] bytes = productImgUpload.getBytes();
-                logger.info("bytes:" + bytes);
-                logger.info("filePath:" + filePath + fileName);
                 String os = System.getProperty("os.name");
-                if (!os.toLowerCase().startsWith("win")) {
+                if (!os.toLowerCase().startsWith(WIN)) {
                     String sepa = java.io.File.separator;
                     filePath = sepa + filePath;
-                    logger.info("filePath:" + filePath + fileName);
                 }
                 Path path = Paths.get(filePath + fileName);
                 //创建文件
                 if (!Files.exists(path)) {
-                    try {
-                        Files.createFile(path);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Files.createFile(path);
                 }
                 Files.write(path, bytes);
-                result = Constant.SUCCESS;
             }
         } catch (Exception e) {
             logger.info("Exception", e);
         }
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, result);
-        return resultMap;
+        return Optional.ofNullable(true)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
+                .orElseThrow(() -> new CommonException("error.uploadFile"));
     }
 }

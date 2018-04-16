@@ -28,10 +28,8 @@ public class Swagger {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring-Mybatis-Mallz-Swagger")
-                .description("Email:a742041978@qq.com")
-                .termsOfServiceUrl("http://dinghuang.github.io/")
-                .version("1.0.0-alpha.1+20171220")
+                .title("校园商城项目API列表")
+                .description("作者:陈钦锋")
                 .build();
     }
 

@@ -1,128 +1,88 @@
 package com.shopping.mall.controller;
 
 
-import com.shopping.mall.domain.Constant;
-import com.shopping.mall.domain.Products;
+import com.shopping.mall.core.CommonException;
 import com.shopping.mall.domain.ShoppingCar;
 import com.shopping.mall.domain.ShoppingRecord;
-import com.shopping.mall.service.ProductsService;
 import com.shopping.mall.service.ShoppingRecordService;
-import net.minidev.json.JSONArray;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
-import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-/**
- * Created by CodeGenerator on 2018/02/02.
- */
+
 @Controller
+@RequestMapping(value = "/mall/shopping_record")
 public class ShoppingRecordController {
-    @Resource
-    private ShoppingRecordService shoppingRecordService;
-    @Resource
-    private ProductsService productService;
 
-    @RequestMapping(value = "/shopping_record")
-    public String shoppingRecord() {
-        return "shopping_record";
+    private final ShoppingRecordService shoppingRecordService;
+
+    @Autowired
+    public ShoppingRecordController(ShoppingRecordService shoppingRecordService) {
+        this.shoppingRecordService = shoppingRecordService;
     }
 
-    @RequestMapping(value = "/shopping_handle")
-    public String shoppingHandle() {
-        return "shopping_handle";
+    @ApiOperation("添加购物记录")
+    @PutMapping
+    public ResponseEntity<Boolean> addShoppingRecord(@ApiParam(value = "购物记录信息", required = true)
+                                                     @RequestBody ShoppingRecord shoppingRecord) {
+        return Optional.ofNullable(shoppingRecordService.addShoppingRecord(shoppingRecord))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
+                .orElseThrow(() -> new CommonException("error.addShoppingCar"));
     }
 
-    @RequestMapping(value = "/addShoppingRecord", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> addShoppingRecord(int userId, int productId, int counts) {
-        String result;
-        Products product = productService.findById(productId);
-        if (counts <= product.getCounts()) {
-            ShoppingRecord shoppingRecord = new ShoppingRecord();
-            shoppingRecord.setUserId(userId);
-            shoppingRecord.setProductId(productId);
-            shoppingRecord.setProductPrice(product.getPrice() * counts);
-            shoppingRecord.setCounts(counts);
-            shoppingRecord.setOrderStatus(0);
-            Date date = new Date();
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-            shoppingRecord.setTime(sf.format(date));
-            product.setCounts(product.getCounts() - counts);
-            productService.update(product);
-            shoppingRecordService.save(shoppingRecord);
-            result = Constant.SUCCESS;
-        } else {
-            result = "unEnough";
-        }
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, result);
-        return resultMap;
+    @ApiOperation("修改购物记录")
+    @PostMapping
+    public ResponseEntity<Boolean> changeShoppingRecord(@ApiParam(value = "购物记录信息", required = true)
+                                                        @RequestBody ShoppingRecord shoppingRecord) {
+        return Optional.ofNullable(shoppingRecordService.changeShoppingRecord(shoppingRecord))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.changeShoppingRecord"));
     }
 
-    @RequestMapping(value = "/changeShoppingRecord", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> changeShoppingRecord(int userId, int productId, String time, int orderStatus) {
-        Condition condition = new Condition(ShoppingCar.class);
-        condition.createCriteria().andCondition("user_id = ", userId).andCondition("product_id = ", productId).andCondition("time = ", time);
-        ShoppingRecord shoppingRecord = shoppingRecordService.findByCondition(condition).get(0);
-        shoppingRecord.setOrderStatus(orderStatus);
-        shoppingRecordService.update(shoppingRecord);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, Constant.SUCCESS);
-        return resultMap;
+    @ApiOperation("根据用户id获取购物记录")
+    @GetMapping(value = "/query_by_user_id/{userId}")
+    public ResponseEntity<List<ShoppingRecord>> getShoppingRecords(@ApiParam(value = "用户id", required = true)
+                                                                   @PathVariable int userId) {
+        return Optional.ofNullable(shoppingRecordService.findByUserId(userId))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.getShoppingRecords"));
     }
 
-    @RequestMapping(value = "/getShoppingRecords", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getShoppingRecords(int userId) {
-        List<ShoppingRecord> shoppingRecordList = shoppingRecordService.findByUserId(userId);
-        String shoppingRecords = JSONArray.toJSONString(shoppingRecordList);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, shoppingRecords);
-        return resultMap;
-    }
-
-    @RequestMapping(value = "/getShoppingRecordsByOrderStatus", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getShoppingRecordsByOrderStatus(int orderStatus) {
+    @ApiOperation("根据订单状态获取购物记录")
+    @GetMapping(value = "/query_by_order_status/{orderStatus}")
+    public ResponseEntity<List<ShoppingRecord>> getShoppingRecordsByOrderStatus(@ApiParam(value = "订单状态", required = true)
+                                                                                @PathVariable int orderStatus) {
         Condition condition = new Condition(ShoppingCar.class);
         condition.createCriteria().andCondition("order_status", orderStatus);
-        List<ShoppingRecord> shoppingRecordList = shoppingRecordService.findByCondition(condition);
-        String shoppingRecords = JSONArray.toJSONString(shoppingRecordList);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, shoppingRecords);
-        return resultMap;
+        return Optional.ofNullable(shoppingRecordService.findByCondition(condition))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.getShoppingRecordsByOrderStatus"));
     }
 
-    @RequestMapping(value = "/getAllShoppingRecords", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getAllShoppingRecords() {
-        List<ShoppingRecord> shoppingRecordList = shoppingRecordService.findAll();
-        String shoppingRecords = JSONArray.toJSONString(shoppingRecordList);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, shoppingRecords);
-        return resultMap;
+    @ApiOperation("获取所有购物记录")
+    @GetMapping
+    public ResponseEntity<List<ShoppingRecord>> getAllShoppingRecords() {
+        return Optional.ofNullable(shoppingRecordService.findAll())
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.getAllShoppingRecords"));
     }
 
-    @RequestMapping(value = "/getUserProductRecord", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getUserProductRecord(int userId, int productId) {
-        String result = "false";
-        if (shoppingRecordService.getUserProductRecord(userId, productId)) {
-            result = "true";
-        }
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put(Constant.RESULT, result);
-        return resultMap;
+    @ApiOperation("根据用户id和产品id查询用户是否有记录")
+    @GetMapping(value = "/query_user_product_record/{userId}/{productId}")
+    public ResponseEntity<Boolean> getUserProductRecord(@ApiParam(value = "用户id", required = true)
+                                                        @PathVariable int userId,
+                                                        @ApiParam(value = "产品id", required = true)
+                                                        @PathVariable int productId) {
+        return Optional.of(shoppingRecordService.getUserProductRecord(userId, productId))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.getUserProductRecord"));
     }
 
 }

@@ -1,65 +1,47 @@
 package com.shopping.mall.controller;
 
+import com.shopping.mall.core.CommonException;
 import com.shopping.mall.domain.Evaluation;
 import com.shopping.mall.service.EvaluationService;
-import com.shopping.mall.service.ShoppingRecordService;
-import net.minidev.json.JSONArray;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-/**
-* Created by CodeGenerator on 2018/02/02.
-*/
+
 @Controller
+@RequestMapping(value = "/mall/evaluation")
 public class EvaluationController {
-    @Resource
-    private EvaluationService evaluationService;
 
-    @Resource
-    private ShoppingRecordService shoppingRecordService;
+    private final EvaluationService evaluationService;
 
-    @RequestMapping(value = "/addShoppingEvaluation",method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String,Object> addShoppingEvaluation(int userId, int productId, String content){
-        System.out.println("我添加了"+userId+" "+productId);
-        String result;
-        if(shoppingRecordService.getUserProductRecord(userId,productId)){
-            Evaluation evaluation = new Evaluation();
-            evaluation.setUserId(userId);
-            evaluation.setProductId(productId);
-            Date date = new Date();
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-            evaluation.setTime(sf.format(date));
-            evaluation.setContent(content);
-            evaluationService.save(evaluation);
-            result = "success";
-        }
-        else{
-            result="noneRecord";
-        }
+    @Autowired
 
-        Map<String,Object> resultMap = new HashMap<String,Object>();
-        resultMap.put("result",result);
-        return resultMap;
+    public EvaluationController(EvaluationService evaluationService) {
+        this.evaluationService = evaluationService;
     }
 
-    @RequestMapping(value = "/getShoppingEvaluations",method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String,Object> getShoppingEvaluations(int productId){
-        List<Evaluation> evaluationList = evaluationService.getProductEvaluation(productId);
-        String evaluations = JSONArray.toJSONString(evaluationList);
-        Map<String,Object> resultMap = new HashMap<>();
-        resultMap.put("result",evaluations);
-        return resultMap;
+    @ApiOperation("添加评价信息")
+    @PutMapping
+    public ResponseEntity<Boolean> addEvaluation(@ApiParam(value = "评价信息", required = true)
+                                                 @RequestBody Evaluation evaluation) {
+
+        return Optional.ofNullable(evaluationService.addEvaluation(evaluation))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
+                .orElseThrow(() -> new CommonException("error.evaluation.create"));
+    }
+
+    @ApiOperation("根据产品编号获取评价信息")
+    @GetMapping(value = "/query_evaluations/{productId}")
+    public ResponseEntity<List<Evaluation>> getShoppingEvaluations(@ApiParam(value = "评价信息", required = true)
+                                                                   @PathVariable int productId) {
+        return Optional.ofNullable(evaluationService.getProductEvaluation(productId))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.query_evaluations"));
     }
 }

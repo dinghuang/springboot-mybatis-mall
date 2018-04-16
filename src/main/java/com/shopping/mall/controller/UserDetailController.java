@@ -2,57 +2,80 @@ package com.shopping.mall.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.shopping.mall.core.CommonException;
 import com.shopping.mall.core.Result;
 import com.shopping.mall.core.ResultGenerator;
 import com.shopping.mall.domain.UserDetail;
 import com.shopping.mall.service.UserDetailService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
-/**
-* Created by CodeGenerator on 2018/02/02.
-*/
 @Controller
-@RequestMapping("/user/detail")
+@RequestMapping("/mall/user_detail")
 public class UserDetailController {
-    @Resource
-    private UserDetailService userDetailService;
 
-    @PostMapping("/add")
-    public Result add(UserDetail userDetail) {
-        userDetailService.save(userDetail);
-        return ResultGenerator.genSuccessResult();
+    private final UserDetailService userDetailService;
+
+    @Autowired
+    public UserDetailController(UserDetailService userDetailService) {
+        this.userDetailService = userDetailService;
     }
 
-    @PostMapping("/delete")
-    public Result delete(@RequestParam Integer id) {
-        userDetailService.deleteById(id);
-        return ResultGenerator.genSuccessResult();
+    @ApiOperation("添加用户详情")
+    @PutMapping
+    public ResponseEntity<UserDetail> add(@ApiParam(value = "用户详情", required = true)
+                                          @RequestBody UserDetail userDetail) {
+        return Optional.ofNullable(userDetailService.add(userDetail))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
+                .orElseThrow(() -> new CommonException("error.add"));
     }
 
-    @PostMapping("/update")
-    public Result update(UserDetail userDetail) {
-        userDetailService.update(userDetail);
-        return ResultGenerator.genSuccessResult();
+    @ApiOperation("删除用户详情")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Boolean> delete(@ApiParam(value = "用户详情", required = true)
+                                          @PathVariable Integer id) {
+        return Optional.ofNullable(userDetailService.delete(id))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.delete"));
     }
 
-    @PostMapping("/detail")
-    public Result detail(@RequestParam Integer id) {
-        UserDetail userDetail = userDetailService.findById(id);
-        return ResultGenerator.genSuccessResult(userDetail);
+    @ApiOperation("更新用户详情")
+    @PostMapping
+    public ResponseEntity<UserDetail> update(@ApiParam(value = "用户详情", required = true)
+                                             @RequestBody UserDetail userDetail) {
+        return Optional.ofNullable(userDetailService.updateUserDetail(userDetail))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.update"));
     }
 
-    @PostMapping("/list")
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    @ApiOperation("根据id获取用户详情")
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDetail> queryDetail(@ApiParam(value = "用户详情", required = true)
+                                                  @PathVariable Integer id) {
+        return Optional.ofNullable(userDetailService.findById(id))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.queryDetail"));
+    }
+
+    @ApiOperation("分页获取所有用户详情")
+    @GetMapping
+    public ResponseEntity<PageInfo> list(@ApiParam(value = "页数")
+                                         @RequestParam(defaultValue = "0") Integer page,
+                                         @ApiParam(value = "页数大小")
+                                         @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<UserDetail> list = userDetailService.findAll();
         PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        return Optional.of(pageInfo)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.queryDetail"));
     }
 }

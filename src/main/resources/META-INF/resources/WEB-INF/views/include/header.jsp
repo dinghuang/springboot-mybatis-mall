@@ -75,24 +75,19 @@
 </nav>
 <script type="text/javascript">
     function searchProduct() {
-        var search = {};
-        search.searchKeyWord = document.getElementById("searchKeyWord").value;
-        var searchResult = "";
         $.ajax({
             async : false,
-            type : 'POST',
-            url : '${cp}/searchPre',
+            type : 'GET',
+            url : '${cp}/mall/product/search?searchKeyWord='+document.getElementById("searchKeyWord").value+'',
             data : search,
             dataType : 'json',
             success : function(result) {
-                searchResult = result.result;
+                window.location.href = "${cp}/search";
             },
             error : function(result) {
                 layer.alert('查询错误');
             }
         });
-        if(searchResult == "success")
-            window.location.href = "${cp}/search";
     }
 </script>
 

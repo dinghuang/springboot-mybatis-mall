@@ -6,9 +6,22 @@ import com.shopping.mall.domain.Products;
 
 import java.util.List;
 
-/**
- * Created by CodeGenerator on 2018/02/02.
- */
 public interface ProductsService extends Service<Products> {
+
+    /**
+     * 根据id删除商品
+     *
+     * @param id id
+     * @return 成功true
+     */
+    Boolean deleteProduct(int id);
+
+    /**
+     * 添加产品
+     *
+     * @param products products
+     * @return products
+     */
+    Products addProduct(Products products);
 
 }

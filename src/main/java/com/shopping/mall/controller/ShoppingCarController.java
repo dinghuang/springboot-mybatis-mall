@@ -1,86 +1,62 @@
 package com.shopping.mall.controller;
 
-import com.shopping.mall.domain.Products;
+import com.shopping.mall.core.CommonException;
 import com.shopping.mall.domain.ShoppingCar;
-import com.shopping.mall.service.ProductsService;
 import com.shopping.mall.service.ShoppingCarService;
-import net.minidev.json.JSONArray;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Condition;
 
-import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
-/**
- * Created by CodeGenerator on 2018/02/02.
- */
 @Controller
+@RequestMapping(value = "/mall/shopping_car")
 public class ShoppingCarController {
-    @Resource
-    private ShoppingCarService shoppingCarService;
 
-    @Resource
-    private ProductsService productService;
 
-    @RequestMapping(value = "/shopping_car")
-    public String shopping_car() {
-        return "shopping_car";
+    private final ShoppingCarService shoppingCarService;
+
+
+    @Autowired
+    public ShoppingCarController(ShoppingCarService shoppingCarService) {
+        this.shoppingCarService = shoppingCarService;
     }
 
-    @RequestMapping(value = "/addShoppingCar", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> addShoppingCar(int userId, int productId, int counts) {
-        Condition condition = new Condition(ShoppingCar.class);
-        condition.createCriteria().andCondition("user_id = ", userId).andCondition("product_id = ", productId);
-        List<ShoppingCar> shoppingCars = shoppingCarService.findByCondition(condition);
-        ShoppingCar shoppingCar = null;
-        if (!shoppingCars.isEmpty()) {
-            shoppingCar = shoppingCars.get(0);
-        }
-        if (shoppingCar == null) {
-            ShoppingCar shoppingCar1 = new ShoppingCar();
-            shoppingCar1.setUserId(userId);
-            shoppingCar1.setProductId(productId);
-            shoppingCar1.setCounts(counts);
-            shoppingCar1.setProductPrice(productService.findById(productId).getPrice() * counts);
-            shoppingCarService.save(shoppingCar1);
-        } else {
-            shoppingCar.setCounts(shoppingCar.getCounts() + counts);
-            shoppingCar.setProductPrice(productService.findById(productId).getPrice() * counts);
-            shoppingCarService.update(shoppingCar);
-        }
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", "success");
-        System.out.println("我返回了");
-        return resultMap;
+    @ApiOperation("添加购物车")
+    @PutMapping
+    public ResponseEntity<ShoppingCar> addShoppingCar(@ApiParam(value = "购物车信息", required = true)
+                                                      @RequestBody ShoppingCar shoppingCar) {
+        return Optional.ofNullable(shoppingCarService.addShoppingCar(shoppingCar))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
+                .orElseThrow(() -> new CommonException("error.addShoppingCar"));
     }
 
-    @RequestMapping(value = "/getShoppingCars", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> getShoppingCars(int userId) {
+    @ApiOperation("根据用户id查询购物车")
+    @GetMapping(value = "/query_shopping_cars/{userId}")
+    public ResponseEntity<List<ShoppingCar>> getShoppingCars(@ApiParam(value = "用户id", required = true)
+                                                             @PathVariable int userId) {
         Condition condition = new Condition(ShoppingCar.class);
         condition.createCriteria().andCondition("user_id = ", userId);
         List<ShoppingCar> shoppingCarList = shoppingCarService.findByCondition(condition);
-        String shoppingCars = JSONArray.toJSONString(shoppingCarList);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", shoppingCars);
-        return resultMap;
+        return Optional.ofNullable(shoppingCarList)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.addShoppingCar"));
     }
 
-    @RequestMapping(value = "/deleteShoppingCar", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, Object> deleteShoppingCar(int userId, int productId) {
-        Condition condition = new Condition(ShoppingCar.class);
-        condition.createCriteria().andCondition("user_id = ", userId).andCondition("product_id = ", productId);
-        shoppingCarService.deleteByCondition(condition);
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("result", "success");
-        return resultMap;
+    @ApiOperation("根据用户id和产品id删除购物车")
+    @DeleteMapping(value = "/{userId}/{productId}")
+    public ResponseEntity<Boolean> deleteShoppingCar(@ApiParam(value = "用户id", required = true)
+                                                     @PathVariable int userId,
+                                                     @ApiParam(value = "产品id", required = true)
+                                                     @PathVariable int productId) {
+        return Optional.ofNullable(shoppingCarService.deleteShoppingCar(userId, productId))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.addShoppingCar"));
     }
 }

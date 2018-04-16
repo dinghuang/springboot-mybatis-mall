@@ -30,7 +30,7 @@
     <br/>
     <div class="col-sm-offset-2 col-md-offest-2">
         <!-- 表单输入 -->
-        <div  class="form-horizontal">
+        <div class="form-horizontal">
             <div class="form-group">
                 <label for="inputEmail" class="col-sm-2 col-md-2 control-label">用户名</label>
                 <div class="col-sm-6 col-md-6">
@@ -46,19 +46,19 @@
             <div class="form-group">
                 <label for="inputNickname" class="col-sm-2 col-md-2 control-label">昵称</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="inputNickname" placeholder="请输入名称" />
+                    <input type="text" class="form-control" id="inputNickname" placeholder="请输入名称"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPassword" class="col-sm-2 col-md-2 control-label">密码</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="禁止输入非法字符" />
+                    <input type="password" class="form-control" id="inputPassword" placeholder="禁止输入非法字符"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPhoneNumber" class="col-sm-2 col-md-2 control-label">手机号码</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="inputPhoneNumber" placeholder="请输入手机号" />
+                    <input type="text" class="form-control" id="inputPhoneNumber" placeholder="请输入手机号"/>
                 </div>
             </div>
             <div class="form-group">
@@ -75,19 +75,19 @@
             <div class="form-group">
                 <label for="birthday" class="col-sm-2 col-md-2 control-label">出生日期</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="birthday" placeholder="18" />
+                    <input type="text" class="form-control" id="birthday" placeholder="18"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="postcodes" class="col-sm-2 col-md-2 control-label">邮政编码</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="postcodes" placeholder="200444" />
+                    <input type="text" class="form-control" id="postcodes" placeholder="200444"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="address" class="col-sm-2 col-md-2 control-label">地址</label>
                 <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="address" placeholder="131xxxxxxxx" />
+                    <input type="text" class="form-control" id="address" placeholder="131xxxxxxxx"/>
                 </div>
             </div>
             <div class="form-group">
@@ -116,7 +116,7 @@
         document.getElementById("birthday").value = userDetail.birthday;
         document.getElementById("postcodes").value = userDetail.postNumber;
         document.getElementById("address").value = userDetail.address;
-        if(userDetail.sex == 0)
+        if (userDetail.sex == 0)
             document.getElementById("man").checked = true;
         else
             document.getElementById("woman").checked = true;
@@ -133,54 +133,52 @@
         user.postNumber = document.getElementById("postcodes").value;
         user.address = document.getElementById("address").value;
         user.sex = 0;
-        if(document.getElementById("woman").checked)
+        if (document.getElementById("woman").checked)
             user.sex = 1;
-        if(user.userName == ''){
-            layer.msg('用户名不能为空',{icon:2});
+        if (user.userName == '') {
+            layer.msg('用户名不能为空', {icon: 2});
             return;
         }
-        else if(user.userName.length >= 12){
-            layer.msg('用户名长度不能超过12个字符',{icon:2});
+        else if (user.userName.length >= 12) {
+            layer.msg('用户名长度不能超过12个字符', {icon: 2});
             return;
         }
-        if(user.nickName == ''){
-            layer.msg('昵称不能为空',{icon:2});
+        if (user.nickName == '') {
+            layer.msg('昵称不能为空', {icon: 2});
             return;
         }
-        else if(user.nickName.length >= 15){
-            layer.msg('用户名长度不能超过15个字符',{icon:2});
+        else if (user.nickName.length >= 15) {
+            layer.msg('用户名长度不能超过15个字符', {icon: 2});
             return;
         }
-        else if(user.password == ''){
-            layer.msg('密码不能为空',{icon:2});
+        else if (user.password == '') {
+            layer.msg('密码不能为空', {icon: 2});
             return;
         }
-        else if(user.password.length>= 20){
-            layer.msg('密码长度不能超过20个字符',{icon:2});
+        else if (user.password.length >= 20) {
+            layer.msg('密码长度不能超过20个字符', {icon: 2});
             return;
         }
-        var registerResult = null;
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/doUpdate',
-            data : user,
-            dataType : 'json',
-            success : function(result) {
-                registerResult = result.result;
+            async: false, //设置同步
+            type: 'POST',
+            url: '${cp}/mall/user_main',
+            data: user,
+            dataType: 'json',
+            success: function (result) {
+                if (result) {
+                    layer.close(loading);
+                    layer.msg('修改成功', {icon: 1});
+                    window.location.href = "${cp}/main";
+                } else {
+                    layer.msg('服务器异常', {icon: 2});
+                }
             },
-            error : function(result) {
-                layer.alert('查询用户错误');
+            error: function (result) {
+                layer.msg('服务器异常', {icon: 2});
             }
         });
-        if(registerResult == 'success'){
-            layer.close(loading);
-            layer.msg('修改成功',{icon:1});
-            window.location.href="${cp}/main";
-        }
-        else if(registerResult == 'fail'){
-            layer.msg('服务器异常',{icon:2});
-        }
+
     }
 
     function getUserById(id) {
@@ -188,15 +186,15 @@
         var user = {};
         user.id = id;
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/getUserById',
-            data : user,
-            dataType : 'json',
-            success : function(result) {
+            async: false, //设置同步
+            type: 'POST',
+            url: '${cp}/getUserById',
+            data: user,
+            dataType: 'json',
+            success: function (result) {
                 userResult = result.result;
             },
-            error : function(result) {
+            error: function (result) {
                 layer.alert('查询错误');
             }
         });
@@ -209,15 +207,15 @@
         var user = {};
         user.id = id;
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/getUserDetailById',
-            data : user,
-            dataType : 'json',
-            success : function(result) {
+            async: false, //设置同步
+            type: 'POST',
+            url: '${cp}/getUserDetailById',
+            data: user,
+            dataType: 'json',
+            success: function (result) {
                 userDetailResult = result.result;
             },
-            error : function(result) {
+            error: function (result) {
                 layer.alert('查询错误');
             }
         });

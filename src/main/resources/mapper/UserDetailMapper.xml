@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.company.project.dao.UserDetailMapper">
-  <resultMap id="BaseResultMap" type="com.shopping.mall.domain.UserDetail">
+<mapper namespace="com.shopping.mall.mapper.UserDetailMapper">
+  <resultMap id="UserDetail" type="com.shopping.mall.domain.UserDetail">
     <!--
       WARNING - @mbg.generated
     -->

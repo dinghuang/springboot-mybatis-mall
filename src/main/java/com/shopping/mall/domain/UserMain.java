@@ -1,5 +1,7 @@
 package com.shopping.mall.domain;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 
 @Table(name = "user_main")
@@ -16,6 +18,12 @@ public class UserMain {
     private String nickName;
 
     private Integer role;
+
+    @Transient
+    private String password;
+
+    @Transient
+    private String userNameOrEmail;
 
     /**
      * @return id
@@ -85,5 +93,21 @@ public class UserMain {
      */
     public void setRole(Integer role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserNameOrEmail() {
+        return userNameOrEmail;
+    }
+
+    public void setUserNameOrEmail(String userNameOrEmail) {
+        this.userNameOrEmail = userNameOrEmail;
     }
 }

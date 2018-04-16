@@ -249,39 +249,34 @@
         var nothing = {};
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getAllShoppingRecords',
+            type: 'GET',
+            url: '${cp}/mall/shopping_record',
             data: nothing,
             dataType: 'json',
             success: function (result) {
-                shoppingRecordProducts = result.result;
+                shoppingRecordProducts = result;
             },
             error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        shoppingRecordProducts = eval("(" + shoppingRecordProducts + ")");
         return shoppingRecordProducts;
     }
 
     function getProductById(id) {
         var productResult = "";
-        var product = {};
-        product.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getProductById',
-            data: product,
+            type: 'GET',
+            url: '${cp}/mall/product/' + id + '',
             dataType: 'json',
             success: function (result) {
-                productResult = result.result;
+                productResult = result;
             },
             error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        productResult = JSON.parse(productResult);
         return productResult;
     }
 
@@ -362,18 +357,16 @@
         $.ajax({
             async: false, //设置同步
             type: 'POST',
-            url: '${cp}/changeShoppingRecord',
+            url: '${cp}/mall/shopping_record',
             data: shoppingRecord,
             dataType: 'json',
             success: function (result) {
-                sendResult = result.result;
+                window.location.href = "${cp}/shopping_handle";
             },
             error: function (result) {
                 layer.alert('发货错误');
             }
         });
-        if (sendResult == "success")
-            window.location.href = "${cp}/shopping_handle";
     }
 </script>
 </body>

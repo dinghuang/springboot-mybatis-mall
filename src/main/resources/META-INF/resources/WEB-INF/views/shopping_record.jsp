@@ -36,10 +36,19 @@
         <div class="col-sm-10  col-md-10 col-sm-offset-1 col-md-offset-1">
             <div class="row">
                 <ul class="nav nav-tabs list-group-diy" role="tablist">
-                    <li role="presentation" class="active list-group-item-diy"><a href="#unHandle" aria-controls="unHandle" role="tab" data-toggle="tab">待发货订单&nbsp;<span class="badge" id="unHandleCount">0</span></a></li>
-                    <li role="presentation" class="list-group-item-diy"><a href="#transport" aria-controls="transport" role="tab" data-toggle="tab">运输中订单&nbsp;<span class="badge" id="transportCount">0</span></a></li>
-                    <li role="presentation" class="list-group-item-diy"><a href="#receive" aria-controls="receive" role="tab" data-toggle="tab">已收货订单&nbsp;<span class="badge" id="receiveCount">0</span></a></li>
-                    <li role="presentation" class="list-group-item-diy"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">全部订单&nbsp;<span class="badge" id="allCount">0</span></a></li>
+                    <li role="presentation" class="active list-group-item-diy"><a href="#unHandle"
+                                                                                  aria-controls="unHandle" role="tab"
+                                                                                  data-toggle="tab">待发货订单&nbsp;<span
+                            class="badge" id="unHandleCount">0</span></a></li>
+                    <li role="presentation" class="list-group-item-diy"><a href="#transport" aria-controls="transport"
+                                                                           role="tab" data-toggle="tab">运输中订单&nbsp;<span
+                            class="badge" id="transportCount">0</span></a></li>
+                    <li role="presentation" class="list-group-item-diy"><a href="#receive" aria-controls="receive"
+                                                                           role="tab" data-toggle="tab">已收货订单&nbsp;<span
+                            class="badge" id="receiveCount">0</span></a></li>
+                    <li role="presentation" class="list-group-item-diy"><a href="#all" aria-controls="all" role="tab"
+                                                                           data-toggle="tab">全部订单&nbsp;<span
+                            class="badge" id="allCount">0</span></a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -96,126 +105,126 @@
         transportTable.innerHTML = "";
         receiveTable.innerHTML = "";
         allTable.innerHTML = "";
-        var unHandleHTML = '<tr>'+
-                '<th>商品名称</th>'+
-                '<th>购买数量</th>'+
-                '<th>付款金额</th>'+
-                '<th>订单状态</th>'+
-                '</tr>';
-        var transportHTML = '<tr>'+
-                '<th>商品名称</th>'+
-                '<th>购买数量</th>'+
-                '<th>付款金额</th>'+
-                '<th>送货地址</th>'+
-                '<th>联系电话</th>'+
-                '<th>订单状态</th>'+
-                '<th>确认收货</th>'+
-                '</tr>';
-        var receiveHTML = '<tr>'+
-                '<th>商品名称</th>'+
-                '<th>购买数量</th>'+
-                '<th>付款金额</th>'+
-                '<th>订单状态</th>'+
-                '<th>评价</th>'+
-                '</tr>';
-        var allHTML = '<tr>'+
-                '<th>商品名称</th>'+
-                '<th>购买数量</th>'+
-                '<th>付款金额</th>'+
-                '<th>订单状态</th>'+
-                '</tr>';
+        var unHandleHTML = '<tr>' +
+            '<th>商品名称</th>' +
+            '<th>购买数量</th>' +
+            '<th>付款金额</th>' +
+            '<th>订单状态</th>' +
+            '</tr>';
+        var transportHTML = '<tr>' +
+            '<th>商品名称</th>' +
+            '<th>购买数量</th>' +
+            '<th>付款金额</th>' +
+            '<th>送货地址</th>' +
+            '<th>联系电话</th>' +
+            '<th>订单状态</th>' +
+            '<th>确认收货</th>' +
+            '</tr>';
+        var receiveHTML = '<tr>' +
+            '<th>商品名称</th>' +
+            '<th>购买数量</th>' +
+            '<th>付款金额</th>' +
+            '<th>订单状态</th>' +
+            '<th>评价</th>' +
+            '</tr>';
+        var allHTML = '<tr>' +
+            '<th>商品名称</th>' +
+            '<th>购买数量</th>' +
+            '<th>付款金额</th>' +
+            '<th>订单状态</th>' +
+            '</tr>';
         var unHandleHTMLTemp = "";
         var transportHTMLTemp = "";
         var receiveHTMLTemp = "";
         var allHTMLTemp = "";
 
-        for(var i=0;i<allShoppingRecords.length;i++){
+        for (var i = 0; i < allShoppingRecords.length; i++) {
             var product = getProductById(allShoppingRecords[i].productId);
-            allHTMLTemp += '<tr>'+
-                    '<td>'+product.name+'</td>'+
-                    '<td>'+allShoppingRecords[i].counts+'</td>'+
-                    '<td>'+allShoppingRecords[i].productPrice+'</td>'+
-                    '<td>'+orderArray[allShoppingRecords[i].orderStatus]+'</td>'+
-                    '</tr>';
+            allHTMLTemp += '<tr>' +
+                '<td>' + product.name + '</td>' +
+                '<td>' + allShoppingRecords[i].counts + '</td>' +
+                '<td>' + allShoppingRecords[i].productPrice + '</td>' +
+                '<td>' + orderArray[allShoppingRecords[i].orderStatus] + '</td>' +
+                '</tr>';
             allCounts++;
-            if(allShoppingRecords[i].orderStatus == 0){
-                unHandleHTMLTemp+= '<tr>'+
-                        '<td>'+product.name+'</td>'+
-                        '<td>'+allShoppingRecords[i].counts+'</td>'+
-                        '<td>'+allShoppingRecords[i].productPrice+'</td>'+
-                        '<td>'+orderArray[allShoppingRecords[i].orderStatus]+'</td>'+
-                        '</tr>';
+            if (allShoppingRecords[i].orderStatus == 0) {
+                unHandleHTMLTemp += '<tr>' +
+                    '<td>' + product.name + '</td>' +
+                    '<td>' + allShoppingRecords[i].counts + '</td>' +
+                    '<td>' + allShoppingRecords[i].productPrice + '</td>' +
+                    '<td>' + orderArray[allShoppingRecords[i].orderStatus] + '</td>' +
+                    '</tr>';
                 unHandleCounts++;
             }
-            else if(allShoppingRecords[i].orderStatus ==1){
+            else if (allShoppingRecords[i].orderStatus == 1) {
                 var address = getUserAddress(allShoppingRecords[i].userId);
                 var phoneNumber = getUserPhoneNumber(allShoppingRecords[i].userId)
-                transportHTMLTemp+= '<tr>'+
-                        '<td>'+product.name+'</td>'+
-                        '<td>'+allShoppingRecords[i].counts+'</td>'+
-                        '<td>'+allShoppingRecords[i].productPrice+'</td>'+
-                        '<td>'+address+'</td>'+
-                        '<td>'+phoneNumber+'</td>'+
-                        '<td>'+orderArray[allShoppingRecords[i].orderStatus]+'</td>'+
-                        '<td>'+
-                        '<button class="btn btn-primary btn-sm" onclick="receiveProducts('+allShoppingRecords[i].userId+','+allShoppingRecords[i].productId+',\''+allShoppingRecords[i].time+'\')">确认收货</button>'+
-                        '</td>'+
-                        '</tr>';
+                transportHTMLTemp += '<tr>' +
+                    '<td>' + product.name + '</td>' +
+                    '<td>' + allShoppingRecords[i].counts + '</td>' +
+                    '<td>' + allShoppingRecords[i].productPrice + '</td>' +
+                    '<td>' + address + '</td>' +
+                    '<td>' + phoneNumber + '</td>' +
+                    '<td>' + orderArray[allShoppingRecords[i].orderStatus] + '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-primary btn-sm" onclick="receiveProducts(' + allShoppingRecords[i].userId + ',' + allShoppingRecords[i].productId + ',\'' + allShoppingRecords[i].time + '\')">确认收货</button>' +
+                    '</td>' +
+                    '</tr>';
                 transportCounts++;
             }
-            else if(allShoppingRecords[i].orderStatus ==2){
-                receiveHTMLTemp += '<tr>'+
-                        '<td>'+product.name+'</td>'+
-                        '<td>'+allShoppingRecords[i].counts+'</td>'+
-                        '<td>'+allShoppingRecords[i].productPrice+'</td>'+
-                        '<td>'+orderArray[allShoppingRecords[i].orderStatus]+'</td>'+
-                        '<td>'+
-                        '<button class="btn btn-primary btn-sm" onclick="productDetail('+allShoppingRecords[i].productId+')">评价</button>'+
-                        '</td>'+
-                        '</tr>';
+            else if (allShoppingRecords[i].orderStatus == 2) {
+                receiveHTMLTemp += '<tr>' +
+                    '<td>' + product.name + '</td>' +
+                    '<td>' + allShoppingRecords[i].counts + '</td>' +
+                    '<td>' + allShoppingRecords[i].productPrice + '</td>' +
+                    '<td>' + orderArray[allShoppingRecords[i].orderStatus] + '</td>' +
+                    '<td>' +
+                    '<button class="btn btn-primary btn-sm" onclick="productDetail(' + allShoppingRecords[i].productId + ')">评价</button>' +
+                    '</td>' +
+                    '</tr>';
                 receiveCounts++;
             }
         }
-        if(unHandleHTMLTemp == ""){
-            unHandleHTML='<div class="row">'+
-                            '<div class="col-sm-3 col-md-3 col-lg-3"></div> '+
-                            '<div class="col-sm-6 col-md-6 col-lg-6">'+
-                                '<h2>没有相关订单</h2>'+
-                            '</div>'+
-                        '</div>';
+        if (unHandleHTMLTemp == "") {
+            unHandleHTML = '<div class="row">' +
+                '<div class="col-sm-3 col-md-3 col-lg-3"></div> ' +
+                '<div class="col-sm-6 col-md-6 col-lg-6">' +
+                '<h2>没有相关订单</h2>' +
+                '</div>' +
+                '</div>';
         }
         else
-            unHandleHTML+=unHandleHTMLTemp;
-        if(transportHTMLTemp == ""){
-            transportHTML = '<div class="row">'+
-                    '<div class="col-sm-3 col-md-3 col-lg-3"></div> '+
-                    '<div class="col-sm-6 col-md-6 col-lg-6">'+
-                    '<h2>没有相关订单</h2>'+
-                    '</div>'+
-                    '</div>';
+            unHandleHTML += unHandleHTMLTemp;
+        if (transportHTMLTemp == "") {
+            transportHTML = '<div class="row">' +
+                '<div class="col-sm-3 col-md-3 col-lg-3"></div> ' +
+                '<div class="col-sm-6 col-md-6 col-lg-6">' +
+                '<h2>没有相关订单</h2>' +
+                '</div>' +
+                '</div>';
         }
         else
-            transportHTML+=transportHTMLTemp;
-        if(receiveHTMLTemp == ""){
-            receiveHTML = '<div class="row">'+
-                    '<div class="col-sm-3 col-md-3 col-lg-3"></div> '+
-                    '<div class="col-sm-6 col-md-6 col-lg-6">'+
-                    '<h2>没有相关订单</h2>'+
-                    '</div>'+
-                    '</div>';
+            transportHTML += transportHTMLTemp;
+        if (receiveHTMLTemp == "") {
+            receiveHTML = '<div class="row">' +
+                '<div class="col-sm-3 col-md-3 col-lg-3"></div> ' +
+                '<div class="col-sm-6 col-md-6 col-lg-6">' +
+                '<h2>没有相关订单</h2>' +
+                '</div>' +
+                '</div>';
         }
         else
-            receiveHTML+=receiveHTMLTemp;
-        if(allHTMLTemp == ""){
-            allHTML = '<div class="row">'+
-                    '<div class="col-sm-3 col-md-3 col-lg-3"></div> '+
-                    '<div class="col-sm-6 col-md-6 col-lg-6">'+
-                    '<h2>没有相关订单</h2>'+
-                    '</div>'+
-                    '</div>';
+            receiveHTML += receiveHTMLTemp;
+        if (allHTMLTemp == "") {
+            allHTML = '<div class="row">' +
+                '<div class="col-sm-3 col-md-3 col-lg-3"></div> ' +
+                '<div class="col-sm-6 col-md-6 col-lg-6">' +
+                '<h2>没有相关订单</h2>' +
+                '</div>' +
+                '</div>';
         }
         else
-            allHTML+=allHTMLTemp;
+            allHTML += allHTMLTemp;
 
         unHandleCount.innerHTML = unHandleCounts;
         transportCount.innerHTML = transportCounts;
@@ -232,43 +241,36 @@
     function getShoppingRecords() {
         judgeIsLogin();
         var shoppingRecordProducts = "";
-        var user = {};
-        user.userId = ${currentUser.id};
+        var userId = ${currentUser.id};
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/getShoppingRecords',
-            data : user,
-            dataType : 'json',
-            success : function(result) {
-                shoppingRecordProducts = result.result;
+            async: false, //设置同步
+            type: 'GET',
+            url: '${cp}/mall/shopping_record/query_by_user_id/'+userId+'',
+            dataType: 'json',
+            success: function (result) {
+                shoppingRecordProducts = result;
             },
-            error : function(result) {
+            error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        shoppingRecordProducts = eval("("+shoppingRecordProducts+")");
         return shoppingRecordProducts;
     }
 
     function getProductById(id) {
         var productResult = "";
-        var product = {};
-        product.id = id;
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/getProductById',
-            data : product,
-            dataType : 'json',
-            success : function(result) {
-                productResult = result.result;
+            async: false, //设置同步
+            type: 'GET',
+            url: '${cp}/mall/product/' + id + '',
+            dataType: 'json',
+            success: function (result) {
+                productResult = result;
             },
-            error : function(result) {
+            error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        productResult = JSON.parse(productResult);
         return productResult;
     }
 
@@ -277,15 +279,15 @@
         var user = {};
         user.id = id;
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/getUserAddressAndPhoneNumber',
-            data : user,
-            dataType : 'json',
-            success : function(result) {
+            async: false, //设置同步
+            type: 'POST',
+            url: '${cp}/getUserAddressAndPhoneNumber',
+            data: user,
+            dataType: 'json',
+            success: function (result) {
                 address = result.address;
             },
-            error : function(result) {
+            error: function (result) {
                 layer.alert('查询错误');
             }
         });
@@ -297,15 +299,15 @@
         var user = {};
         user.id = id;
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/getUserAddressAndPhoneNumber',
-            data : user,
-            dataType : 'json',
-            success : function(result) {
+            async: false, //设置同步
+            type: 'POST',
+            url: '${cp}/getUserAddressAndPhoneNumber',
+            data: user,
+            dataType: 'json',
+            success: function (result) {
                 phoneNumber = result.phoneNumber;
             },
-            error : function(result) {
+            error: function (result) {
                 layer.alert('查询错误');
             }
         });
@@ -313,11 +315,11 @@
     }
 
     function judgeIsLogin() {
-        if("${currentUser.id}" == null || "${currentUser.id}" == undefined || "${currentUser.id}" ==""){
+        if ("${currentUser.id}" == null || "${currentUser.id}" == undefined || "${currentUser.id}" == "") {
             window.location.href = "${cp}/login";
         }
     }
-    function receiveProducts(userId,productId,time) {
+    function receiveProducts(userId, productId, time) {
         var receiveResult = "";
         var shoppingRecord = {};
         shoppingRecord.userId = userId;
@@ -325,43 +327,34 @@
         shoppingRecord.time = time;
         shoppingRecord.orderStatus = 2;
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/changeShoppingRecord',
-            data : shoppingRecord,
-            dataType : 'json',
-            success : function(result) {
-                receiveResult = result.result;
+            async: false, //设置同步
+            type: 'POST',
+            url: '${cp}/mall/shopping_record',
+            data: shoppingRecord,
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "${cp}/shopping_record";
+
             },
-            error : function(result) {
+            error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        if(receiveResult = "success")
-            window.location.href = "${cp}/shopping_record";
     }
 
     function productDetail(id) {
-        var product = {};
-        var jumpResult = '';
-        product.id = id;
         $.ajax({
-            async : false, //设置同步
-            type : 'POST',
-            url : '${cp}/productDetail',
-            data : product,
-            dataType : 'json',
-            success : function(result) {
-                jumpResult = result.result;
+            async: false, //设置同步
+            type: 'GET',
+            url: '${cp}/mall/product/' + id + '',
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "${cp}/mall/product";
             },
-            error : function(resoult) {
+            error: function (resoult) {
                 layer.alert('查询错误');
             }
         });
-
-        if(jumpResult == "success"){
-            window.location.href = "${cp}/product_detail";
-        }
     }
 </script>
 </body>
