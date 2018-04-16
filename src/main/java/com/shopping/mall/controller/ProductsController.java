@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -108,9 +109,9 @@ public class ProductsController {
     @ResponseBody
     public Map<String, Object> searchProduct(String searchKeyWord) {
         List<Products> productList;
-        Condition condition=new Condition(Products.class);
-        condition.createCriteria().andCondition("name like ",searchKeyWord).orCondition("key_word like ",searchKeyWord);
-        productList =  productsService.findByCondition(condition);
+        Condition condition = new Condition(Products.class);
+        condition.createCriteria().andCondition("name like ", searchKeyWord).orCondition("key_word like ", searchKeyWord);
+        productList = productsService.findByCondition(condition);
         String searchResult = JSONArray.toJSONString(productList);
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put(Constant.RESULT, searchResult);
@@ -138,7 +139,17 @@ public class ProductsController {
                 int id = productsService.findBy("name", name).getId();
                 String fileName = String.valueOf(id) + ".jpg";
                 byte[] bytes = productImgUpload.getBytes();
+                logger.info("bytes:" + bytes);
+                logger.info("filePath:" + filePath+ fileName);
                 Path path = Paths.get(filePath + fileName);
+                //创建文件
+                if(!Files.exists(path)) {
+                    try {
+                        Files.createFile(path);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 Files.write(path, bytes);
                 result = Constant.SUCCESS;
             }
