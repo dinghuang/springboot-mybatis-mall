@@ -7,7 +7,6 @@ import com.shopping.mall.domain.Evaluation;
 import com.shopping.mall.mapper.EvaluationMapper;
 import com.shopping.mall.service.EvaluationService;
 import com.shopping.mall.service.ShoppingRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +19,10 @@ import java.util.List;
 @Transactional(rollbackFor = CommonException.class)
 public class EvaluationServiceImpl extends AbstractService<Evaluation> implements EvaluationService {
 
-    private final EvaluationMapper evaluationMapper;
+    private EvaluationMapper evaluationMapper;
 
-    private final ShoppingRecordService shoppingRecordService;
+    private ShoppingRecordService shoppingRecordService;
 
-    @Autowired
     public EvaluationServiceImpl(EvaluationMapper evaluationMapper,
                                  ShoppingRecordService shoppingRecordService) {
         this.evaluationMapper = evaluationMapper;
@@ -45,7 +43,7 @@ public class EvaluationServiceImpl extends AbstractService<Evaluation> implement
             evaluation.setTime(sf.format(date));
             try {
                 save(evaluation);
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw new CommonException("error.addEvaluation");
             }
             flag = true;

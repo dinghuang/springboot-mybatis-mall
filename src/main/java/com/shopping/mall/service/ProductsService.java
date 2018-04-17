@@ -4,7 +4,6 @@ package com.shopping.mall.service;
 import com.shopping.mall.core.Service;
 import com.shopping.mall.domain.Products;
 
-import java.util.List;
 
 public interface ProductsService extends Service<Products> {
 

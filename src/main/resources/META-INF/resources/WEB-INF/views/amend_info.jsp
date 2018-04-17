@@ -163,8 +163,9 @@
             async: false, //设置同步
             type: 'POST',
             url: '${cp}/mall/user_main',
-            data: user,
-            dataType: 'json',
+            data: JSON.stringify(user),
+            dataType: "json",
+            contentType: 'application/json',
             success: function (result) {
                 if (result) {
                     layer.close(loading);
@@ -183,43 +184,35 @@
 
     function getUserById(id) {
         var userResult = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserById',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/'+id+'',
             dataType: 'json',
             success: function (result) {
-                userResult = result.result;
+                userResult = result;
             },
             error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        userResult = JSON.parse(userResult);
         return userResult;
     }
 
     function getUserDetailById(id) {
         var userDetailResult = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserDetailById',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/'+id+'/detail',
             dataType: 'json',
             success: function (result) {
-                userDetailResult = result.result;
+                userDetailResult = result;
             },
             error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        userDetailResult = JSON.parse(userDetailResult);
         return userDetailResult;
     }
 </script>

@@ -233,24 +233,21 @@
     }
 
     function deleteUser(id) {
-        var user = {};
-        user.id = id;
-        var deleteResult = "";
         $.ajax({
             async: false,
-            type: 'POST',
-            url: '${cp}/deleteUser',
-            data: user,
+            type: 'DELETE',
+            url: '${cp}/mall/user_main/' + id + '',
             dataType: 'json',
             success: function (result) {
-                deleteResult = result.result;
+                if (!result) {
+                    layer.alert("删除用户出错");
+                }
             },
             error: function (result) {
                 layer.alert('查询用户错误');
             }
         });
-        if (deleteResult != "success")
-            layer.alert("删除用户出错");
+
         listAllUser()
     }
 
@@ -279,12 +276,13 @@
         product.price = document.getElementById("productPrice").value;
         product.counts = document.getElementById("productCount").value;
         product.type = document.getElementById("productType").value;
+        debugger;
         $.ajax({
             async: false,
             type: 'PUT',
             url: '${cp}/mall/product',
-            data: product,
-            dataType: 'json',
+            data: JSON.stringify(product),
+            contentType: 'application/json',
             success: function (result) {
                 fileUpload();
                 layer.msg('添加商品成功', {icon: 1, time: 1000});

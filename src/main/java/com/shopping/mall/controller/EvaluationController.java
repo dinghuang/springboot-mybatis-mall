@@ -5,7 +5,6 @@ import com.shopping.mall.domain.Evaluation;
 import com.shopping.mall.service.EvaluationService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,9 +17,7 @@ import java.util.*;
 @RequestMapping(value = "/mall/evaluation")
 public class EvaluationController {
 
-    private final EvaluationService evaluationService;
-
-    @Autowired
+    private EvaluationService evaluationService;
 
     public EvaluationController(EvaluationService evaluationService) {
         this.evaluationService = evaluationService;

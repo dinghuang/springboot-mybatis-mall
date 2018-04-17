@@ -2,14 +2,12 @@ package com.shopping.mall.service.imp;
 
 import com.shopping.mall.core.AbstractService;
 import com.shopping.mall.core.CommonException;
-import com.shopping.mall.domain.Constant;
 import com.shopping.mall.domain.Products;
 import com.shopping.mall.domain.ShoppingCar;
 import com.shopping.mall.domain.ShoppingRecord;
 import com.shopping.mall.mapper.ShoppingRecordMapper;
 import com.shopping.mall.service.ProductsService;
 import com.shopping.mall.service.ShoppingRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
@@ -23,11 +21,10 @@ import java.util.List;
 @Transactional(rollbackFor = CommonException.class)
 public class ShoppingRecordServiceImpl extends AbstractService<ShoppingRecord> implements ShoppingRecordService {
 
-    private final ShoppingRecordMapper shoppingRecordMapper;
+    private ShoppingRecordMapper shoppingRecordMapper;
 
-    private final ProductsService productsService;
+    private ProductsService productsService;
 
-    @Autowired
     public ShoppingRecordServiceImpl(ShoppingRecordMapper shoppingRecordMapper,
                                      ProductsService productsService) {
         this.shoppingRecordMapper = shoppingRecordMapper;
@@ -36,11 +33,7 @@ public class ShoppingRecordServiceImpl extends AbstractService<ShoppingRecord> i
 
     @Override
     public boolean getUserProductRecord(int userId, int productId) {
-        if (shoppingRecordMapper.getUserProductRecord(userId, productId) != 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return shoppingRecordMapper.getUserProductRecord(userId, productId) != 0;
     }
 
     @Override

@@ -198,13 +198,10 @@
 
     function getUserAddress(id) {
         var address = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserAddressAndPhoneNumber',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/query_user_address_and_phone_number/' + id + '',
             dataType: 'json',
             success: function (result) {
                 address = result.address;
@@ -219,13 +216,10 @@
 
     function getUserPhoneNumber(id) {
         var phoneNumber = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserAddressAndPhoneNumber',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/query_user_address_and_phone_number/' + id + '',
             dataType: 'json',
             success: function (result) {
                 phoneNumber = result.phoneNumber;
@@ -261,8 +255,8 @@
             async: false,
             type: 'PUT',
             url: '${cp}/mall/shopping_record',
-            data: shoppingRecord,
-            dataType: 'json',
+            data: JSON.stringify(shoppingRecord),
+            contentType: 'application/json',
             success: function (result) {
                 var product = getProductById(productId);
                 if (result) {
@@ -287,8 +281,9 @@
             async: false,
             type: 'POST',
             url: '${cp}/deleteShoppingCar',
-            data: shoppingCar,
-            dataType: 'json',
+            data: JSON.stringify(shoppingCar),
+            dataType: "json",
+            contentType: 'application/json',
             success: function (result) {
                 deleteResult = result.result;
             },

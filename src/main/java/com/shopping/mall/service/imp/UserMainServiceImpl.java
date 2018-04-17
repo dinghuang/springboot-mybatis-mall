@@ -9,7 +9,6 @@ import com.shopping.mall.domain.UserDto;
 import com.shopping.mall.domain.UserMain;
 import com.shopping.mall.service.UserDetailService;
 import com.shopping.mall.service.UserMainService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
@@ -23,9 +22,8 @@ import java.util.Date;
 @Transactional(rollbackFor = CommonException.class)
 public class UserMainServiceImpl extends AbstractService<UserMain> implements UserMainService {
 
-    private final UserDetailService userDetailService;
+    private UserDetailService userDetailService;
 
-    @Autowired
     public UserMainServiceImpl(UserDetailService userDetailService) {
         this.userDetailService = userDetailService;
     }

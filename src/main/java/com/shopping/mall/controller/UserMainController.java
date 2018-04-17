@@ -1,9 +1,6 @@
 package com.shopping.mall.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.shopping.mall.core.CommonException;
-import com.shopping.mall.domain.ShoppingCar;
 import com.shopping.mall.domain.UserDetail;
 import com.shopping.mall.domain.UserDto;
 import com.shopping.mall.domain.UserMain;
@@ -11,27 +8,25 @@ import com.shopping.mall.service.UserDetailService;
 import com.shopping.mall.service.UserMainService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import tk.mybatis.mapper.entity.Condition;
 
 import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
 import java.util.*;
-
 
 @Controller
 @RequestMapping("/mall/user_main")
 public class UserMainController {
 
-    private final UserMainService userService;
+    private UserMainService userService;
+    private UserDetailService userDetailService;
 
-    @Autowired
-    public UserMainController(UserMainService userService) {
+    public UserMainController(UserMainService userService,
+                              UserDetailService userDetailService) {
         this.userService = userService;
+        this.userDetailService = userDetailService;
     }
 
     @ApiOperation("用户登陆")
@@ -46,7 +41,7 @@ public class UserMainController {
     @ApiOperation("用户注册")
     @PutMapping(value = "/do_register")
     public ResponseEntity<String> doRegister(@ApiParam(value = "用户注册信息", required = true)
-                                                 @RequestBody UserDto userDto) {
+                                             @RequestBody UserDto userDto) {
         return Optional.ofNullable(userService.doRegister(userDto))
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseThrow(() -> new CommonException("error.doRegister"));
@@ -66,57 +61,57 @@ public class UserMainController {
     public ResponseEntity<List<UserMain>> getAllUser() {
         return Optional.ofNullable(userService.findAll())
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
-                .orElseThrow(() -> new CommonException("error.doLogin"));
+                .orElseThrow(() -> new CommonException("error.getAllUser"));
     }
 
-//    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Map<String, Object> deleteUser(int id) {
-//        String result = "fail";
-//        if (userDetailService.deleteById(id) == 1) {
-//            if (userService.deleteById(id) == 1) {
-//                result = "success";
-//            }
-//        }
-//        Map<String, Object> resultMap = new HashMap<>();
-//        resultMap.put("result", result);
-//        return resultMap;
-//    }
-//
-//    @RequestMapping(value = "/getUserAddressAndPhoneNumber", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Map<String, Object> getUserAddressAndPhoneNumber(int id) {
-//        String address = userDetailService.findById(id).getAddress();
-//        String phoneNumber = userDetailService.findById(id).getPhoneNumber();
-//        Map<String, Object> resultMap = new HashMap<>();
-//        resultMap.put("address", address);
-//        resultMap.put("phoneNumber", phoneNumber);
-//        return resultMap;
-//    }
-//
-//    @RequestMapping(value = "/doLogout")
-//    public String doLogout(HttpSession httpSession) {
-//        httpSession.setAttribute("currentUser", "");
-//        return "redirect:login";
-//    }
-//
-//    @RequestMapping(value = "/getUserById", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Map<String, Object> getUserById(int id) {
-//        UserMain user = userService.findById(id);
-//        String result = JSON.toJSONString(user);
-//        Map<String, Object> resultMap = new HashMap<String, Object>();
-//        resultMap.put("result", result);
-//        return resultMap;
-//    }
-//
-//    @RequestMapping(value = "/getUserDetailById", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Map<String, Object> getUserDetailById(int id) {
-//        UserDetail userDetail = userDetailService.findById(id);
-//        String result = JSON.toJSONString(userDetail);
-//        Map<String, Object> resultMap = new HashMap<>();
-//        resultMap.put("result", result);
-//        return resultMap;
-//    }
+    @ApiOperation("根据用户id删除用户")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Boolean> deleteUser(@ApiParam(value = "用户id", required = true)
+                                              @PathVariable int id) {
+        //todo 关联删除用户的所有东西
+        return Optional.of(userService.deleteById(id) == 1)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.deleteUser"));
+    }
+
+    @ApiOperation("根据用户id查询地址和手机号")
+    @GetMapping(value = "/{id}/query_user_address_and_phone_number")
+    public ResponseEntity<Map<String, Object>> getUserAddressAndPhoneNumber(@ApiParam(value = "用户id", required = true)
+                                                                            @PathVariable int id) {
+        String address = userDetailService.findById(id).getAddress();
+        String phoneNumber = userDetailService.findById(id).getPhoneNumber();
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("address", address);
+        resultMap.put("phoneNumber", phoneNumber);
+        return Optional.of(resultMap)
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.getUserAddressAndPhoneNumber"));
+    }
+
+    @ApiOperation("注销登陆")
+    @PostMapping(value = "do_logout")
+    public ResponseEntity<String> doLogout(HttpSession httpSession) {
+        httpSession.setAttribute("currentUser", "");
+        return Optional.of("redirect:login")
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.doLogout"));
+    }
+
+    @ApiOperation("根据用户id获取用户信息")
+    @GetMapping(value = "{id}")
+    public ResponseEntity<UserMain> getUserById(@ApiParam(value = "用户id", required = true)
+                                                @PathVariable int id) {
+        return Optional.ofNullable(userService.findById(id))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.getUserById"));
+    }
+
+    @ApiOperation("根据用户id获取用户详细信息")
+    @GetMapping(value = "{id}/detail")
+    public ResponseEntity<UserDetail> getUserDetailById(@ApiParam(value = "用户id", required = true)
+                                                        @PathVariable int id) {
+        return Optional.ofNullable(userDetailService.findById(id))
+                .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseThrow(() -> new CommonException("error.getUserDetailById"));
+    }
 }

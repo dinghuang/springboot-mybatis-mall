@@ -1,6 +1,8 @@
 package com.shopping.mall.domain;
 
-public class UserDto {
+import java.io.Serializable;
+
+public class UserDto implements Serializable {
 
     private String userName;
 
@@ -90,5 +92,20 @@ public class UserDto {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", sex=" + sex +
+                ", birthday='" + birthday + '\'' +
+                ", postNumber='" + postNumber + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

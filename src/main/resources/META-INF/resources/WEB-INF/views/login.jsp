@@ -67,8 +67,9 @@
             async: false,
             type: 'POST',
             url: '${cp}/mall/user_main/do_login',
-            data: user,
-            dataType: 'json',
+            data: JSON.stringify(user),
+            dataType: "json",
+            contentType: 'application/json',
             success: function (result) {
                 layer.close(loading);
                 if (result == 'success') {

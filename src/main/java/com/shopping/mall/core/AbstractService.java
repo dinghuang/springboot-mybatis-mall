@@ -9,9 +9,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-/**
- * 基于通用MyBatis Mapper插件的Service接口的实现
- */
 public abstract class AbstractService<T> implements Service<T> {
 
     @Autowired

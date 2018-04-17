@@ -3,12 +3,10 @@ package com.shopping.mall.service.imp;
 import com.shopping.mall.core.AbstractService;
 import com.shopping.mall.core.CommonException;
 import com.shopping.mall.domain.UserDetail;
-import com.shopping.mall.mapper.UserDetailMapper;
 import com.shopping.mall.service.UserDetailService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 
 
 @Service

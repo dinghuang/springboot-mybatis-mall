@@ -149,7 +149,7 @@
             url: '${cp}/mall/product/' + id + '',
             dataType: 'json',
             success: function (result) {
-                window.location.href = "${cp}/mall/product";
+                window.location.href = "${cp}/product_detail";
             },
             error: function (resoult) {
                 layer.alert('查询错误');

@@ -5,7 +5,6 @@ import com.shopping.mall.domain.ShoppingCar;
 import com.shopping.mall.service.ShoppingCarService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,10 +19,8 @@ import java.util.Optional;
 public class ShoppingCarController {
 
 
-    private final ShoppingCarService shoppingCarService;
+    private ShoppingCarService shoppingCarService;
 
-
-    @Autowired
     public ShoppingCarController(ShoppingCarService shoppingCarService) {
         this.shoppingCarService = shoppingCarService;
     }
@@ -46,7 +43,7 @@ public class ShoppingCarController {
         List<ShoppingCar> shoppingCarList = shoppingCarService.findByCondition(condition);
         return Optional.ofNullable(shoppingCarList)
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
-                .orElseThrow(() -> new CommonException("error.addShoppingCar"));
+                .orElseThrow(() -> new CommonException("error.getShoppingCars"));
     }
 
     @ApiOperation("根据用户id和产品id删除购物车")
@@ -57,6 +54,6 @@ public class ShoppingCarController {
                                                      @PathVariable int productId) {
         return Optional.ofNullable(shoppingCarService.deleteShoppingCar(userId, productId))
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
-                .orElseThrow(() -> new CommonException("error.addShoppingCar"));
+                .orElseThrow(() -> new CommonException("error.deleteShoppingCar"));
     }
 }

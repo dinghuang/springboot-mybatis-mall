@@ -245,7 +245,7 @@
         $.ajax({
             async: false, //设置同步
             type: 'GET',
-            url: '${cp}/mall/shopping_record/query_by_user_id/'+userId+'',
+            url: '${cp}/mall/shopping_record/query_by_user_id/' + userId + '',
             dataType: 'json',
             success: function (result) {
                 shoppingRecordProducts = result;
@@ -276,13 +276,10 @@
 
     function getUserAddress(id) {
         var address = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserAddressAndPhoneNumber',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/query_user_address_and_phone_number/' + id + '',
             dataType: 'json',
             success: function (result) {
                 address = result.address;
@@ -296,13 +293,10 @@
 
     function getUserPhoneNumber(id) {
         var phoneNumber = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserAddressAndPhoneNumber',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/query_user_address_and_phone_number/' + id + '',
             dataType: 'json',
             success: function (result) {
                 phoneNumber = result.phoneNumber;
@@ -330,8 +324,9 @@
             async: false, //设置同步
             type: 'POST',
             url: '${cp}/mall/shopping_record',
-            data: shoppingRecord,
-            dataType: 'json',
+            data: JSON.stringify(shoppingRecord),
+            dataType: "json",
+            contentType: 'application/json',
             success: function (result) {
                 window.location.href = "${cp}/shopping_record";
 
@@ -349,7 +344,7 @@
             url: '${cp}/mall/product/' + id + '',
             dataType: 'json',
             success: function (result) {
-                window.location.href = "${cp}/mall/product";
+                window.location.href = "${cp}/product_detail";
             },
             error: function (resoult) {
                 layer.alert('查询错误');

@@ -5,7 +5,6 @@ import com.shopping.mall.core.CommonException;
 import com.shopping.mall.domain.ShoppingCar;
 import com.shopping.mall.service.ProductsService;
 import com.shopping.mall.service.ShoppingCarService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Condition;
@@ -17,9 +16,8 @@ import java.util.List;
 @Transactional(rollbackFor = CommonException.class)
 public class ShoppingCarServiceImpl extends AbstractService<ShoppingCar> implements ShoppingCarService {
 
-    private final ProductsService productsService;
+    private ProductsService productsService;
 
-    @Autowired
     public ShoppingCarServiceImpl(ProductsService productsService) {
         this.productsService = productsService;
     }

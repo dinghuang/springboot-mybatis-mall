@@ -25,7 +25,8 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -46,7 +47,8 @@
                         <li><a href="${cp}/control" methods="post">控制台</a></li>
                     </c:if>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
                                 ${currentUser.nickName}
                             <span class="caret"></span>
                         </a>
@@ -58,7 +60,7 @@
                             </c:if>
                             <li role="separator" class="divider"></li>
                             <li><a href="${cp}/amend_info">个人资料修改</a></li>
-                            <li><a href="${cp}/doLogout">注销登录</a></li>
+                            <li><a href="${cp}/mall/user_main/do_logout">注销登录</a></li>
                         </ul>
                     </li>
                 </c:if>
@@ -76,15 +78,14 @@
 <script type="text/javascript">
     function searchProduct() {
         $.ajax({
-            async : false,
-            type : 'GET',
-            url : '${cp}/mall/product/search?searchKeyWord='+document.getElementById("searchKeyWord").value+'',
-            data : search,
-            dataType : 'json',
-            success : function(result) {
+            async: false,
+            type: 'GET',
+            url: '${cp}/mall/product/search?searchKeyWord=' + document.getElementById("searchKeyWord").value + '',
+            dataType: 'json',
+            success: function (result) {
                 window.location.href = "${cp}/search";
             },
-            error : function(result) {
+            error: function (result) {
                 layer.alert('查询错误');
             }
         });

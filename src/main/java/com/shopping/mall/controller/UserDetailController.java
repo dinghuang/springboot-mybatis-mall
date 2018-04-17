@@ -3,13 +3,10 @@ package com.shopping.mall.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shopping.mall.core.CommonException;
-import com.shopping.mall.core.Result;
-import com.shopping.mall.core.ResultGenerator;
 import com.shopping.mall.domain.UserDetail;
 import com.shopping.mall.service.UserDetailService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,9 +19,8 @@ import java.util.Optional;
 @RequestMapping("/mall/user_detail")
 public class UserDetailController {
 
-    private final UserDetailService userDetailService;
+    private UserDetailService userDetailService;
 
-    @Autowired
     public UserDetailController(UserDetailService userDetailService) {
         this.userDetailService = userDetailService;
     }

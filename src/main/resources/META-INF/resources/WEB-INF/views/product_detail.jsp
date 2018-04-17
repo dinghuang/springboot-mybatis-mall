@@ -117,8 +117,8 @@
             async: false,
             type: 'PUT',
             url: '${cp}/mall/shopping_car',
-            data: shoppingCar,
-            dataType: 'json',
+            data: JSON.stringify(shoppingCar),
+            contentType: 'application/json',
             success: function (result) {
                 layer.confirm('前往购物车？', {icon: 1, title: '添加成功', btn: ['前往购物车', '继续浏览']},
                     function () {
@@ -223,13 +223,10 @@
 
     function getUserAddress(id) {
         var address = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserAddressAndPhoneNumber',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/query_user_address_and_phone_number/' + id + '',
             dataType: 'json',
             success: function (result) {
                 address = result.address;
@@ -243,13 +240,10 @@
 
     function getUserPhoneNumber(id) {
         var phoneNumber = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserAddressAndPhoneNumber',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/query_user_address_and_phone_number/' + id + '',
             dataType: 'json',
             success: function (result) {
                 phoneNumber = result.phoneNumber;
@@ -273,8 +267,8 @@
             async: false,
             type: 'PUT',
             url: '${cp}/mall/shopping_record',
-            data: shoppingRecord,
-            dataType: 'json',
+            data: JSON.stringify(shoppingRecord),
+            contentType: 'application/json',
             success: function (result) {
                 if (result) {
                     layer.confirm('前往订单状态？', {icon: 1, title: '购买成功', btn: ['前往订单', '继续购买']},
@@ -365,22 +359,18 @@
 
     function getUserById(id) {
         var userResult = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserById',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/'+id+'',
             dataType: 'json',
             success: function (result) {
-                userResult = result.result;
+                userResult = result;
             },
             error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        userResult = JSON.parse(userResult);
         return userResult;
     }
 
@@ -394,8 +384,8 @@
             async: false,
             type: 'PUT',
             url: '${cp}/mall/evaluation',
-            data: evaluation,
-            dataType: 'json',
+            data: JSON.stringify(evaluation),
+            contentType: 'application/json',
             success: function (result) {
                 layer.msg("评价成功", {icon: 1});
                 window.location.href = "${cp}/product_detail";

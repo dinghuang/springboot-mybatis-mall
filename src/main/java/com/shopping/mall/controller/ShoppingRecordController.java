@@ -7,7 +7,6 @@ import com.shopping.mall.domain.ShoppingRecord;
 import com.shopping.mall.service.ShoppingRecordService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,9 +20,8 @@ import java.util.*;
 @RequestMapping(value = "/mall/shopping_record")
 public class ShoppingRecordController {
 
-    private final ShoppingRecordService shoppingRecordService;
+    private ShoppingRecordService shoppingRecordService;
 
-    @Autowired
     public ShoppingRecordController(ShoppingRecordService shoppingRecordService) {
         this.shoppingRecordService = shoppingRecordService;
     }
@@ -34,7 +32,7 @@ public class ShoppingRecordController {
                                                      @RequestBody ShoppingRecord shoppingRecord) {
         return Optional.ofNullable(shoppingRecordService.addShoppingRecord(shoppingRecord))
                 .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
-                .orElseThrow(() -> new CommonException("error.addShoppingCar"));
+                .orElseThrow(() -> new CommonException("error.addShoppingRecord"));
     }
 
     @ApiOperation("修改购物记录")

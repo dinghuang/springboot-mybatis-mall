@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,11 +26,10 @@ import java.util.Optional;
 @RequestMapping(value = "/mall/product")
 public class ProductsController {
 
-    private final ProductsService productsService;
+    private ProductsService productsService;
 
     private static final String WIN = "win";
 
-    @Autowired
     public ProductsController(ProductsService productsService) {
         this.productsService = productsService;
     }
@@ -126,7 +124,7 @@ public class ProductsController {
         } catch (Exception e) {
             logger.info("Exception", e);
         }
-        return Optional.ofNullable(true)
+        return Optional.of(true)
                 .map(result -> new ResponseEntity<>(result, HttpStatus.CREATED))
                 .orElseThrow(() -> new CommonException("error.uploadFile"));
     }

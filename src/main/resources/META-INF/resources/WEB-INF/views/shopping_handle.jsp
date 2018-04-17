@@ -282,34 +282,27 @@
 
     function getUserById(id) {
         var userResult = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserById',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/'+id+'',
             dataType: 'json',
             success: function (result) {
-                userResult = result.result;
+                userResult = result;
             },
             error: function (result) {
                 layer.alert('查询错误');
             }
         });
-        userResult = JSON.parse(userResult);
         return userResult;
     }
 
     function getUserAddress(id) {
         var address = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserAddressAndPhoneNumber',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/query_user_address_and_phone_number/' + id + '',
             dataType: 'json',
             success: function (result) {
                 address = result.address;
@@ -323,13 +316,10 @@
 
     function getUserPhoneNumber(id) {
         var phoneNumber = "";
-        var user = {};
-        user.id = id;
         $.ajax({
             async: false, //设置同步
-            type: 'POST',
-            url: '${cp}/getUserAddressAndPhoneNumber',
-            data: user,
+            type: 'GET',
+            url: '${cp}/mall/user_main/query_user_address_and_phone_number/' + id + '',
             dataType: 'json',
             success: function (result) {
                 phoneNumber = result.phoneNumber;
@@ -358,8 +348,9 @@
             async: false, //设置同步
             type: 'POST',
             url: '${cp}/mall/shopping_record',
-            data: shoppingRecord,
-            dataType: 'json',
+            data: JSON.stringify(shoppingRecord),
+            dataType: "json",
+            contentType: 'application/json',
             success: function (result) {
                 window.location.href = "${cp}/shopping_handle";
             },
