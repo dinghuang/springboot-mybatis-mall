@@ -75,7 +75,7 @@ public class UserMainController {
     }
 
     @ApiOperation("根据用户id查询地址和手机号")
-    @GetMapping(value = "/{id}/query_user_address_and_phone_number")
+    @GetMapping(value = "/query_user_address_and_phone_number/{id}")
     public ResponseEntity<Map<String, Object>> getUserAddressAndPhoneNumber(@ApiParam(value = "用户id", required = true)
                                                                             @PathVariable int id) {
         String address = userDetailService.findById(id).getAddress();

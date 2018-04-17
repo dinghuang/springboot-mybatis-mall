@@ -149,7 +149,6 @@
             dataType: "json",
             contentType: 'application/json',
             success: function (result) {
-                debugger;
                 if (result == 'success') {
                     layer.close(loading);
                     layer.msg('注册成功', {icon: 1});

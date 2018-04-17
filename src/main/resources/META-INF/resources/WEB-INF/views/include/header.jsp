@@ -60,7 +60,7 @@
                             </c:if>
                             <li role="separator" class="divider"></li>
                             <li><a href="${cp}/amend_info">个人资料修改</a></li>
-                            <li><a href="${cp}/mall/user_main/do_logout">注销登录</a></li>
+                            <li><a onclick="doLogout();">注销登录</a></li>
                         </ul>
                     </li>
                 </c:if>
@@ -87,6 +87,20 @@
             },
             error: function (result) {
                 layer.alert('查询错误');
+            }
+        });
+    }
+    function doLogout() {
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: '${cp}/mall/user_main/do_logout',
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "${cp}/login";
+            },
+            error: function (result) {
+                layer.alert('注销失败');
             }
         });
     }

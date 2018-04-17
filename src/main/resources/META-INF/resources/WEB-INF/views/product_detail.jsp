@@ -302,7 +302,7 @@
         }
         evaluationTable.innerHTML += html;
 
-        if (getUserProductRecord() == "true") {
+        if (getUserProductRecord()) {
             var inputArea = document.getElementById("inputArea");
             html = '<div class="col-sm-12 col-md-12 col-lg-12">' +
                 '<textarea class="form-control" rows="4" id="evaluationText"></textarea>' +
@@ -323,7 +323,7 @@
         $.ajax({
             async: false, //设置同步
             type: 'GET',
-            url: '${cp}/mall/shopping_recordquery_user_product_record/' + userId + '/' + productId + '',
+            url: '${cp}/mall/shopping_record/query_user_product_record/' + userId + '/' + productId + '',
             dataType: 'json',
             success: function (result) {
                 results = result;
