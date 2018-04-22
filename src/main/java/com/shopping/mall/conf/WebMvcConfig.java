@@ -60,4 +60,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(new WebMallInterceptor())
                 .addPathPatterns("/control**");
     }
+
 }

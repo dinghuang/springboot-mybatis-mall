@@ -276,7 +276,6 @@
         product.price = document.getElementById("productPrice").value;
         product.counts = document.getElementById("productCount").value;
         product.type = document.getElementById("productType").value;
-        debugger;
         $.ajax({
             async: false,
             type: 'PUT',

@@ -112,7 +112,6 @@
         shoppingCar.userId = ${currentUser.id};
         shoppingCar.productId = productId;
         shoppingCar.counts = counts;
-        var addResult = "";
         $.ajax({
             async: false,
             type: 'PUT',
@@ -133,6 +132,7 @@
                 layer.alert('添加购物车失败');
             }
         });
+
     }
 
     function judgeIsLogin() {

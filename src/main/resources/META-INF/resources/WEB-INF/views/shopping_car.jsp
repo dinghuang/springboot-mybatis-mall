@@ -89,9 +89,9 @@
         $.ajax({
             async: false, //设置同步
             type: 'GET',
-            url: '${cp}/mall/query_shopping_cars/' + userId + '',
+            url: '${cp}/mall/shopping_car/query_shopping_cars/' + userId + '',
             dataType: 'json',
-            success: function (result) {
+            success: function (result) {1
                 shoppingCarProducts = result;
             },
             error: function (result) {
@@ -273,19 +273,15 @@
     }
 
     function deleteShoppingCar(productId) {
-        var shoppingCar = {};
-        shoppingCar.userId = ${currentUser.id};
-        shoppingCar.productId = productId;
-        var deleteResult = "";
+        var userId = ${currentUser.id};
+        var productId = productId;
         $.ajax({
             async: false,
-            type: 'POST',
-            url: '${cp}/deleteShoppingCar',
-            data: JSON.stringify(shoppingCar),
+            type: 'DELETE',
+            url: '${cp}/mall/shopping_car/'+userId+'/'+productId+'',
             dataType: "json",
             contentType: 'application/json',
             success: function (result) {
-                deleteResult = result.result;
             },
             error: function (result) {
                 layer.alert('查询用户错误');
