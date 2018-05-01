@@ -39,7 +39,7 @@ public class ProductsController {
     @ApiOperation("获取所有产品")
     @GetMapping(value = "/query_products")
     public ResponseEntity<List<Products>> queryAllProducts() {
-        return Optional.ofNullable(productsService.findAll())
+        return Optional.ofNullable(productsService.queryAll())
                 .map(result -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseThrow(() -> new CommonException("error.queryAllProducts"));
     }

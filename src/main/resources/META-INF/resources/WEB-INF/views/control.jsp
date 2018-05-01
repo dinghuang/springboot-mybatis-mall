@@ -98,13 +98,13 @@
                             <label for="productType" class="col-sm-2 col-md-2 control-label">商品类别</label>
                             <div class="col-sm-6 col-md-6">
                                 <select name="productType" class="form-control" id="productType">
-                                    <option value="1">衣服配饰</option>
-                                    <option value="2">数码产品</option>
-                                    <option value="3">书籍办公</option>
-                                    <option value="4">游戏周边</option>
-                                    <option value="5">生活用品</option>
-                                    <option value="6">化妆用品</option>
-                                    <option value="7">运动用品</option>
+                                    <option value="衣服配饰">衣服配饰</option>
+                                    <option value="数码产品">数码产品</option>
+                                    <option value="书籍办公">书籍办公</option>
+                                    <option value="游戏周边">游戏周边</option>
+                                    <option value="生活用品">生活用品</option>
+                                    <option value="化妆用品">化妆用品</option>
+                                    <option value="运动用品">运动用品</option>
                                 </select>
                             </div>
                         </div>

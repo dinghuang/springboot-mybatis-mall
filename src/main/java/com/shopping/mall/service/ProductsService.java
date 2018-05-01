@@ -4,6 +4,8 @@ package com.shopping.mall.service;
 import com.shopping.mall.core.Service;
 import com.shopping.mall.domain.Products;
 
+import java.util.List;
+
 
 public interface ProductsService extends Service<Products> {
 
@@ -22,5 +24,12 @@ public interface ProductsService extends Service<Products> {
      * @return products
      */
     Products addProduct(Products products);
+
+    /**
+     * 查找所有商品
+     *
+     * @return List<Products>
+     */
+    List<Products> queryAll();
 
 }

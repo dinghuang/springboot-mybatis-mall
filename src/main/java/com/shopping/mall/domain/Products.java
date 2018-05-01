@@ -23,7 +23,7 @@ public class Products implements Serializable {
 
     private Integer counts;
 
-    private Integer type;
+    private String type;
 
     public Integer getId() {
         return id;
@@ -73,11 +73,11 @@ public class Products implements Serializable {
         this.counts = counts;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 

@@ -11,7 +11,27 @@
     <result column="key_word" jdbcType="VARCHAR" property="keyWord" />
     <result column="price" jdbcType="INTEGER" property="price" />
     <result column="counts" jdbcType="INTEGER" property="counts" />
-    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
+
+    <select id="queryAll" resultMap="Products">
+        SELECT
+            p.id,
+            p. NAME,
+            p.description,
+            p.key_word,
+            p.price,
+            p.counts,
+            case p.type WHEN '衣服配饰' then '1'
+            WHEN '数码产品' then '2'
+            WHEN '书籍办公' then '3'
+            WHEN '游戏周边' then '4'
+            WHEN '生活用品' then '5'
+            WHEN '化妆用品' then '6'
+            WHEN '运动用品' then '7'
+            else '' end as type
+        FROM
+            products p
+    </select>
 
 </mapper>
