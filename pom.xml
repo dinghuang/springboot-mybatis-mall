@@ -101,6 +101,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>1.5.12.RELEASE</version>
         </dependency>
+        <!-- 阿里云支付 -->
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -149,7 +149,6 @@
         var address = getUserAddress(${currentUser.id});
         var phoneNumber = getUserPhoneNumber(${currentUser.id});
         var totalPrice = 0;
-
         var html = '<div class="col-sm-1 col-md-1 col-lg-1"></div>' +
             '<div class="col-sm-10 col-md-10 col-lg-10">' +
             '<table class="table confirm-margin">';
@@ -231,18 +230,25 @@
         return phoneNumber;
     }
 
-    function addToShoppingRecordsPre(productsId, productsCounts) {
-        for (var i = 0; i < productsId.length; i++) {
-            addToShoppingRecords(productsId[i], productsCounts[i]);
-        }
-        layer.confirm('前往订单状态？', {icon: 1, title: '购买成功', btn: ['前往订单', '继续购买']},
-            function () {
-                window.location.href = "${cp}/shopping_record";
-            },
-            function (index) {
-                window.location.href = "${cp}/shopping_car";
-            }
-        );
+    function addToShoppingRecordsPre(productsIds, productsCounts) {
+        var data = {
+            "userId" : ${currentUser.id},
+            "productsIds" : productsIds,
+            "productsCounts" : productsCounts
+        };
+        var last= JSON.stringify(data);
+        window.location.href = "${cp}/pay/alipay?jsonData="+last;
+        <%--for (var i = 0; i < productsId.length; i++) {--%>
+            <%--addToShoppingRecords(productsId[i], productsCounts[i]);--%>
+        <%--}--%>
+        <%--layer.confirm('前往订单状态？', {icon: 1, title: '购买成功', btn: ['前往订单', '继续购买']},--%>
+            <%--function () {--%>
+                <%--window.location.href = "${cp}/shopping_record";--%>
+            <%--},--%>
+            <%--function (index) {--%>
+                <%--window.location.href = "${cp}/shopping_car";--%>
+            <%--}--%>
+        <%--);--%>
     }
 
     function addToShoppingRecords(productId, productCounts) {

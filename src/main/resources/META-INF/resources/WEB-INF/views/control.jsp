@@ -272,6 +272,7 @@
         var product = {};
         product.name = document.getElementById("productName").value;
         product.description = document.getElementById("productDescribe").value;
+        product.accessCode = document.getElementById("accessCode").value;
         product.keyWord = document.getElementById("keyWord").value;
         product.price = document.getElementById("productPrice").value;
         product.counts = document.getElementById("productCount").value;
