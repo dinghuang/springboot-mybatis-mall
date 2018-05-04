@@ -261,39 +261,11 @@
         var counts = parseInt(productCounts.innerHTML);
         var data = {
             userId : ${currentUser.id},
-            productsIds : productId
+            productsIds : productId,
             productsCounts : counts
         };
         var last= encodeURI(JSON.stringify(data));
         window.location.href = "${cp}/pay/alipay?jsonData="+last;
-        <%--var shoppingRecord = {};--%>
-        <%--shoppingRecord.userId = ${currentUser.id};--%>
-        <%--shoppingRecord.productId = productId;--%>
-        <%--shoppingRecord.counts = counts;--%>
-        <%--$.ajax({--%>
-            <%--async: false,--%>
-            <%--type: 'PUT',--%>
-            <%--url: '${cp}/mall/shopping_record',--%>
-            <%--data: JSON.stringify(shoppingRecord),--%>
-            <%--contentType: 'application/json',--%>
-            <%--success: function (result) {--%>
-                <%--if (result) {--%>
-                    <%--layer.confirm('前往订单状态？', {icon: 1, title: '购买成功', btn: ['前往订单', '继续购买']},--%>
-                        <%--function () {--%>
-                            <%--window.location.href = "${cp}/shopping_record";--%>
-                        <%--},--%>
-                        <%--function (index) {--%>
-                            <%--layer.close(index);--%>
-                        <%--}--%>
-                    <%--);--%>
-                <%--} else {--%>
-                    <%--layer.alert("库存不足，购买失败")--%>
-                <%--}--%>
-            <%--},--%>
-            <%--error: function (result) {--%>
-                <%--layer.alert('购买错误');--%>
-            <%--}--%>
-        <%--});--%>
     }
 
     function listEvaluations() {
