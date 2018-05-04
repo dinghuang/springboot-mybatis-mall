@@ -5,11 +5,12 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradePagePayModel;
-import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.shopping.mall.domain.PayDTO;
 import com.shopping.mall.domain.Products;
+import com.shopping.mall.domain.ShoppingRecord;
 import com.shopping.mall.service.ProductsService;
+import com.shopping.mall.service.ShoppingRecordService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,8 @@ public class AlipayController {
 
     @Autowired
     private ProductsService productsService;
+    @Autowired
+    private ShoppingRecordService shoppingRecordService;
 
     /**
      * 支付请求
@@ -97,15 +100,26 @@ public class AlipayController {
             //乱码解决，这段代码在出现乱码时使用。
             valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
-            logger.info("返回信息名称：+" + name + "返回信息值" + valueStr);
         }
-        try {
-            boolean flag = AlipaySignature.rsaCheckV1(params, ALIPAY_PUBLIC_KEY, "UTF-8", "RSA2");
-            if (flag) {
-                logger.info("付款成功");
-            }
-        } catch (AlipayApiException e) {
-            logger.info("错误日志", e);
+        String jsonData = params.get("passback_params");
+        PayDTO payDTO = JSON.parseObject(jsonData, PayDTO.class);
+        List<Integer> productsIds = payDTO.getProductsIds();
+        List<Integer> productsCounts = payDTO.getProductsCounts();
+        for (int i = 0; i < productsIds.size(); i++) {
+            ShoppingRecord shoppingRecord = new ShoppingRecord();
+            shoppingRecord.setUserId(payDTO.getUserId());
+            shoppingRecord.setProductId(productsIds.get(i));
+            shoppingRecord.setCounts(productsCounts.get(i));
+            shoppingRecordService.addShoppingRecord(shoppingRecord);
         }
+//        try {
+//            boolean flag = AlipaySignature.rsaCheckV1(params, ALIPAY_PUBLIC_KEY, "UTF-8", "RSA2");
+//            if (flag) {
+//
+//                logger.info("付款成功");
+//            }
+//        } catch (AlipayApiException e) {
+//            logger.info("错误日志", e);
+//        }
     }
 }
