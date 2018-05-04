@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
-import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.alipay.api.domain.AlipayTradePagePayModel;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
@@ -56,7 +55,7 @@ public class AlipayController {
         for (int i = 0; i < productsIds.size(); i++) {
             Products product = productsService.findById(productsIds.get(i));
             totalPrice += product.getPrice() * productsCounts.get(i);
-            name.append(product.getName()).append("X").append(productsCounts.get(i)).append(";");
+            name.append(product.getName()).append("*").append(productsCounts.get(i)).append(";");
         }
         BigDecimal price = new BigDecimal(totalPrice);
         Double result = price.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();

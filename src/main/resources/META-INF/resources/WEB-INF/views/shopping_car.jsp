@@ -232,11 +232,11 @@
 
     function addToShoppingRecordsPre(productsIds, productsCounts) {
         var data = {
-            "userId" : ${currentUser.id},
-            "productsIds" : productsIds,
-            "productsCounts" : productsCounts
+            userId : ${currentUser.id},
+            productsIds : productsIds,
+            productsCounts : productsCounts
         };
-        var last= JSON.stringify(data);
+        var last= encodeURI(JSON.stringify(data));
         window.location.href = "${cp}/pay/alipay?jsonData="+last;
         <%--for (var i = 0; i < productsId.length; i++) {--%>
             <%--addToShoppingRecords(productsId[i], productsCounts[i]);--%>
