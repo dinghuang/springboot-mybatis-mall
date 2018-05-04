@@ -251,32 +251,32 @@
         <%--);--%>
     }
 
-    function addToShoppingRecords(productId, productCounts) {
-        judgeIsLogin();
-        var shoppingRecord = {};
-        shoppingRecord.userId = ${currentUser.id};
-        shoppingRecord.productId = productId;
-        shoppingRecord.counts = productCounts;
-        $.ajax({
-            async: false,
-            type: 'PUT',
-            url: '${cp}/mall/shopping_record',
-            data: JSON.stringify(shoppingRecord),
-            contentType: 'application/json',
-            success: function (result) {
-                var product = getProductById(productId);
-                if (result) {
-                    deleteShoppingCar(productId);
-                    layer.msg("商品 " + product.name + " 购买成功", {icon: 1});
-                } else {
-                    layer.alert("商品 " + product.name + " 库存不足，购买失败")
-                }
-            },
-            error: function (result) {
-                layer.alert('购买错误');
-            }
-        });
-    }
+    <%--function addToShoppingRecords(productId, productCounts) {--%>
+        <%--judgeIsLogin();--%>
+        <%--var shoppingRecord = {};--%>
+        <%--shoppingRecord.userId = ${currentUser.id};--%>
+        <%--shoppingRecord.productId = productId;--%>
+        <%--shoppingRecord.counts = productCounts;--%>
+        <%--$.ajax({--%>
+            <%--async: false,--%>
+            <%--type: 'PUT',--%>
+            <%--url: '${cp}/mall/shopping_record',--%>
+            <%--data: JSON.stringify(shoppingRecord),--%>
+            <%--contentType: 'application/json',--%>
+            <%--success: function (result) {--%>
+                <%--var product = getProductById(productId);--%>
+                <%--if (result) {--%>
+                    <%--deleteShoppingCar(productId);--%>
+                    <%--layer.msg("商品 " + product.name + " 购买成功", {icon: 1});--%>
+                <%--} else {--%>
+                    <%--layer.alert("商品 " + product.name + " 库存不足，购买失败")--%>
+                <%--}--%>
+            <%--},--%>
+            <%--error: function (result) {--%>
+                <%--layer.alert('购买错误');--%>
+            <%--}--%>
+        <%--});--%>
+    <%--}--%>
 
     function deleteShoppingCar(productId) {
         var userId = ${currentUser.id};
