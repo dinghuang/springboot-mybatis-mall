@@ -26,9 +26,6 @@ import java.math.BigDecimal;
 import java.util.*;
 
 
-/**
- * @author dinghuang123@gmail.com
- */
 @Controller
 @RequestMapping("/pay/alipay")
 public class AlipayController {

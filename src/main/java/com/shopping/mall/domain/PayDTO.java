@@ -2,9 +2,6 @@ package com.shopping.mall.domain;
 
 import java.util.List;
 
-/**
- * @author dinghuang123@gmail.com
- */
 public class PayDTO {
 
     private List<Integer> productsIds;
