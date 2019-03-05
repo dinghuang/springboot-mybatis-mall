@@ -45,7 +45,7 @@ CREATE TABLE `products` (
   `key_word` varchar(1000) NOT NULL,
   `price` int(11) NOT NULL,
   `counts` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
+  `type` varchar(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;

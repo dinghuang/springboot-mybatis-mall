@@ -33,6 +33,7 @@ public class ProductsServiceImpl extends AbstractService<Products> implements Pr
         try {
             save(products);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new CommonException("error.addProduct");
         }
         return products;
